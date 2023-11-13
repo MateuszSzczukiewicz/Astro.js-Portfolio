@@ -1,0 +1,35 @@
+# Prettier
+/node_modules
+/build
+/.webstorm
+/.vscode
+
+# Astro
+/.astro
+
+# Svelte
+/public
+
+# Tailwind CSS
+/dist
+
+# WebStorm
+/.idea
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+System Volume Information/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# PNPM
+/pnpm-debug.log
+pnpm-lock.yaml
+
+# VERCEL
+vercel.json

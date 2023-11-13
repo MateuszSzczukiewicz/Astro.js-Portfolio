@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+
+# Build files
+/build/
+
+# Astro
+/.astro/
+
+# Svelte
+/public/
+
+# Tailwind CSS
+/dist/
+
+# WebStorm
+/.idea/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+System Volume Information/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# PNPM
+/pnpm-debug.log
+.pnpm/
+pnpm-lock.yaml
