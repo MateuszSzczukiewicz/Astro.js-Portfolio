@@ -3,7 +3,10 @@
     "module": "esnext",
     "baseUrl": ".",
     "paths": {
-      "$lib/*": ["src/*"]
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@pages/*": ["src/pages/*"]
     }
   },
   "extends": "astro/tsconfigs/strict"

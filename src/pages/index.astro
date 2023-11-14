@@ -1,36 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Card from '../components/Card.svelte'
+import Layout from '@layouts/Layout.astro'
+import { Image } from 'astro:assets'
+import image2 from '@assets/images/image2.jpg'
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p>
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+<Layout title="Mateusz Szczukiewicz">
+	<main class="">
+		<article class="flex h-screen items-center justify-around">
+			<section class="flex max-w-3xl flex-col gap-10">
+				<h1 class="text-7xl">Mateusz Szczukiewicz</h1>
+				<p class="">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam aperiam asperiores,
+					dolores doloribus dolorum eaque fuga id in laborum maxime, nisi nobis numquam possimus
+					quam quisquam quod recusandae voluptates? Ab corporis esse eveniet exercitationem in vel.
+					Autem ducimus eos repellendus sed? Aperiam, architecto aspernatur at blanditiis debitis
+					deleniti deserunt error, eveniet iste magni mollitia ratione repellat, reprehenderit.
+					Animi, temporibus. Ad adipisci aperiam beatae culpa cumque deserunt dolorem dolores ea
+					earum eos, excepturi exercitationem hic incidunt ipsum laboriosam laborum maxime molestiae
+					nobis non quasi quia quidem quo suscipit, tempore voluptatum!
+				</p>
+			</section>
+			<div class="">
+				<Image class="w-[40rem] rounded-2xl shadow-2xl" src={image2} alt="Moje zdjęcie" />
+			</div>
+		</article>
 	</main>
 </Layout>

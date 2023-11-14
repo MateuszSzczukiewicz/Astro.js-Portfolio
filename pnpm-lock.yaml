@@ -23,6 +23,9 @@ dependencies:
   svelte:
     specifier: ^4.0.0
     version: 4.2.3
+  svelte-spa-router:
+    specifier: ^3.3.0
+    version: 3.3.0
   tailwindcss:
     specifier: ^3.3.5
     version: 3.3.5
@@ -4457,6 +4460,11 @@ packages:
       picomatch: 2.3.1
     dev: false
 
+  /regexparam@2.0.1:
+    resolution: {integrity: sha512-zRgSaYemnNYxUv+/5SeoHI0eJIgTL/A2pUtXUPLHQxUldagouJ9p+K6IbIZ/JiQuCEv2E2B1O11SjVQy3aMCkw==}
+    engines: {node: '>=8'}
+    dev: false
+
   /rehype-parse@8.0.5:
     resolution: {integrity: sha512-Ds3RglaY/+clEX2U2mHflt7NlMA72KspZ0JLUJgBBLpRddBcEw3H8uYZQliQriku22NZpYMfjDdSgHcjxue24A==}
     dependencies:
@@ -4947,6 +4955,12 @@ packages:
       svelte: ^3.19.0 || ^4.0.0
     dependencies:
       svelte: 4.2.3
+    dev: false
+
+  /svelte-spa-router@3.3.0:
+    resolution: {integrity: sha512-cwRNe7cxD43sCvSfEeaKiNZg3FCizGxeMcf7CPiWRP3jKXjEma3vxyyuDtPOam6nWbVxl9TNM3hlE/i87ZlqcQ==}
+    dependencies:
+      regexparam: 2.0.1
     dev: false
 
   /svelte2tsx@0.6.25(svelte@4.2.3)(typescript@5.2.2):
