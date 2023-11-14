@@ -2,14 +2,16 @@
 import Layout from '@layouts/Layout.astro'
 import { Image } from 'astro:assets'
 import image2 from '@assets/images/image2.jpg'
+import AboutMe from '@components/AboutMe.svelte'
+import { About } from '../components/About'
 ---
 
 <Layout title="Mateusz Szczukiewicz">
-	<main class="">
-		<article class="flex h-screen items-center justify-around">
-			<section class="flex max-w-3xl flex-col gap-10">
-				<h1 class="text-7xl">Mateusz Szczukiewicz</h1>
-				<p class="">
+	<main class="w-screen">
+		<article class="bg-hero flex h-screen items-center justify-around bg-zinc-50 p-10">
+			<section class="flex max-w-3xl flex-col items-center justify-center gap-10 sm:items-start">
+				<h1 class="text-6xl sm:text-7xl">Mateusz Szczukiewicz</h1>
+				<p class="max-w-prose">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam aperiam asperiores,
 					dolores doloribus dolorum eaque fuga id in laborum maxime, nisi nobis numquam possimus
 					quam quisquam quod recusandae voluptates? Ab corporis esse eveniet exercitationem in vel.
@@ -19,10 +21,26 @@ import image2 from '@assets/images/image2.jpg'
 					earum eos, excepturi exercitationem hic incidunt ipsum laboriosam laborum maxime molestiae
 					nobis non quasi quia quidem quo suscipit, tempore voluptatum!
 				</p>
+				<div class="flex w-fit flex-col gap-4">
+					<a
+						href="#more"
+						class="cursor-pointer border-4 border-zinc-950 p-2 text-center font-semibold"
+						>Więcej o mnie</a
+					>
+					<a
+						href="#cv"
+						class="cursor-pointer justify-center border-4 border-zinc-950 p-2 text-center font-semibold"
+						>Zobacz CV</a
+					>
+				</div>
 			</section>
-			<div class="">
+			<div>
 				<Image class="w-[40rem] rounded-2xl shadow-2xl" src={image2} alt="Moje zdjęcie" />
 			</div>
 		</article>
+		<article id="more" class="flex h-screen items-center justify-start overflow-hidden bg-zinc-100">
+			<AboutMe />
+		</article>
+		<article id="cv" class="flex h-screen items-center justify-around bg-zinc-200"></article>
 	</main>
 </Layout>
