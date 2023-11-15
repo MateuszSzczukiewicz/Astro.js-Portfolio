@@ -9,29 +9,33 @@
 	let wrapper
 	let image
 
-	onMount(() => {
-		tlOpen.current = gsap.timeline({ paused: true })
-		tlClose.current = gsap.timeline({ paused: true })
+	const playOpen = () => tlOpen.play()
 
-		if (tlOpen.current) {
-			tlOpen.current
-				.to(title.current, { opacity: '0', y: '-=50px', duration: 0.2 })
+	const playClose = () => tlOpen.reverse()
+
+	onMount(() => {
+		tlOpen = gsap.timeline({ paused: true })
+		tlClose = gsap.timeline({ paused: true })
+
+		if (tlOpen) {
+			tlOpen
+				.to(title, { opacity: '0', y: '-=50px', duration: 0.2 })
 				.to(
-					button.current.children[0],
+					button.children[0],
 					{
 						scale: 25,
 						duration: 1
 					},
 					'+=0.1'
 				)
-				.set(wrapper.current, { backgroundColor: 'black' })
-				.to(button.current, { opacity: '0', duration: 0.1 })
-				.set(title.current, { display: 'none' })
-				.set(button.current, { display: 'none' })
-				.set(closeButton.current, { display: 'block' })
-				.set(image.current, { display: 'block' })
+				.set(wrapper, { backgroundColor: 'black' })
+				.to(button, { opacity: '0', duration: 0.1 })
+				.set(title, { display: 'none' })
+				.set(button, { display: 'none' })
+				.set(closeButton, { display: 'block' })
+				.set(image, { display: 'block' })
 				.fromTo(
-					[image.current, closeButton.current],
+					[image, closeButton],
 					{ opacity: '0', y: '+=50px' },
 					{ opacity: '1', y: '0', stagger: '0.2' }
 				)
@@ -39,9 +43,14 @@
 	})
 </script>
 
-<div class="flex h-screen w-screen flex-col items-center justify-center overflow-hidden">
-	<h1 class="text-[105px] font-bold">Zobacz i pobierz moje CV</h1>
+<div
+	bind:this={wrapper}
+	class="flex h-screen w-screen flex-col items-center justify-center overflow-hidden"
+>
+	<h1 bind:this={title} class="text-[105px] font-bold">Zobacz i pobierz moje CV</h1>
 	<button
+		bind:this={button}
+		on:click={playOpen}
 		class="relative mt-16 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white"
 		>CV
 		<span
@@ -49,9 +58,14 @@
 		></span>
 	</button>
 	<img
+		bind:this={image}
 		class="hidden h-auto w-[500px]"
 		src="https://a.allegroimg.com/original/113480/f6893bdd4293880393369e070e57/Edytowalny-Szablon-CV-w-MS-Word-1-22-CV"
 		alt="Moje CV"
 	/>
-	<button class="mt-5 hidden border-0 bg-transparent text-xl font-bold text-white"></button>
+	<button
+		bind:this={closeButton}
+		on:click={playClose}
+		class="mt-5 hidden border-0 bg-transparent text-xl font-bold text-white"
+	></button>
 </div>
