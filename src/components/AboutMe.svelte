@@ -8,13 +8,8 @@
 	let content
 
 	const handleClick = () => {
-		if (isOpen) {
-			tl.reverse()
-			isOpen = !isOpen
-		} else {
-			tl.play()
-			isOpen = !isOpen
-		}
+		tl[isOpen ? 'reverse' : 'play']()
+		isOpen = !isOpen
 	}
 
 	onMount(() => {
