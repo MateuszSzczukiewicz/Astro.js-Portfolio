@@ -13,8 +13,8 @@ const { title } = Astro.props
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
-		<NavBar />
+	<body class="overflow-x-hidden">
+		<NavBar client:only="svelte" />
 		<slot />
 	</body>
 </html>

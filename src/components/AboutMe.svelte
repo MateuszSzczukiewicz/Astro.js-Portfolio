@@ -1,24 +1,61 @@
 <script>
 	import gsap from 'gsap'
+	import { onMount } from 'svelte'
+	let isOpen = false
+	let tl
+	let curtain
+	let title
+	let content
+
+	const handleClick = () => {
+		if (isOpen) {
+			tl.reverse()
+			isOpen = !isOpen
+		} else {
+			tl.play()
+			isOpen = !isOpen
+		}
+	}
+
+	onMount(() => {
+		tl = gsap.timeline({ paused: true })
+		tl.addLabel('start').to(
+			[curtain.children, title, content.children],
+			{
+				x: '-50vw',
+				duration: 0.5,
+				easing: 'cubic-bezier(.47,.93,0,1.02)',
+				stagger: 0.03
+			},
+			'start'
+		)
+	})
 </script>
 
-<div class="flex h-full w-[50vw] items-center justify-center">
+<div bind:this={title} class="flex h-full w-[50vw] items-center justify-center">
 	<span class="p-10 text-center text-[105px] font-bold">Dowiedz się więcej</span>
 </div>
-<div class="absolute right-0 z-20 flex h-full w-1/2 cursor-pointer items-center justify-center">
+<button
+	bind:this={curtain}
+	on:click={handleClick}
+	class="absolute right-0 flex h-full w-1/2 items-center justify-center"
+>
 	<img
 		src="https://media.macphun.com/img/uploads/customer/how-to/608/15542038745ca344e267fb80.28757312.jpg?q=85&w=1340"
-		class="absolute z-0 h-screen w-[50vw] bg-amber-700 object-cover"
+		class="absolute h-screen w-[50vw] object-cover"
 		alt="Moje zdjęcie"
 	/>
 	<span class="z-10 text-[105px] font-bold text-white">O mnie</span>
-</div>
-<div
-	class="absolute right-[-50vw] z-20 flex h-full w-[50vw] items-center justify-center overflow-hidden"
+</button>
+<button
+	bind:this={content}
+	on:click={handleClick}
+	class="absolute -right-1/2 flex h-full w-[50vw] flex-col items-center justify-center text-center"
 >
-	<p class="max-w-prose text-xl">
+	<span class="max-w-prose text-xl">
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis consectetur culpa
 		cumque cupiditate dolorum ea fuga fugiat harum iusto magni natus nobis nostrum odit, officia
 		porro quam sunt vitae?
-	</p>
-</div>
+	</span>
+	<span class="mt-4 text-xl">[kliknij, by zamknąć]</span>
+</button>

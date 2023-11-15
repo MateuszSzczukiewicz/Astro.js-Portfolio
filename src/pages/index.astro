@@ -3,11 +3,10 @@ import Layout from '@layouts/Layout.astro'
 import { Image } from 'astro:assets'
 import image2 from '@assets/images/image2.jpg'
 import AboutMe from '@components/AboutMe.svelte'
-import { About } from '../components/About'
 ---
 
 <Layout title="Mateusz Szczukiewicz">
-	<main class="w-screen">
+	<main>
 		<article class="bg-hero flex h-screen items-center justify-around bg-zinc-50 p-10">
 			<section class="flex max-w-3xl flex-col items-center justify-center gap-10 sm:items-start">
 				<h1 class="text-6xl sm:text-7xl">Mateusz Szczukiewicz</h1>
@@ -35,11 +34,11 @@ import { About } from '../components/About'
 				</div>
 			</section>
 			<div>
-				<Image class="w-[40rem] rounded-2xl shadow-2xl" src={image2} alt="Moje zdjęcie" />
+				<Image class="w-[40rem] opacity-80 shadow-2xl" src={image2} alt="Moje zdjęcie" />
 			</div>
 		</article>
 		<article id="more" class="flex h-screen items-center justify-start overflow-hidden bg-zinc-100">
-			<AboutMe />
+			<AboutMe client:only="svelte" />
 		</article>
 		<article id="cv" class="flex h-screen items-center justify-around bg-zinc-200"></article>
 	</main>
