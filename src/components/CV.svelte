@@ -1,4 +1,5 @@
 <script>
+	import CVButton from '@components/CVButton.svelte'
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	let tlOpen
@@ -8,6 +9,7 @@
 	let title
 	let wrapper
 	let image
+	let cvButton
 
 	const playOpen = () => tlOpen.play()
 
@@ -28,10 +30,12 @@
 					},
 					'+=0.1'
 				)
+				.to(cvButton, { opacity: 0, duration: 0.1 }, '-=0.1')
 				.set(wrapper, { backgroundColor: 'black' })
 				.to(button, { opacity: '0', duration: 0.1 })
 				.set(title, { display: 'none' })
 				.set(button, { display: 'none' })
+				.set(cvButton, { display: 'none' })
 				.set(closeButton, { display: 'block' })
 				.set(image, { display: 'block' })
 				.fromTo(
@@ -51,12 +55,13 @@
 	<button
 		bind:this={button}
 		on:click={playOpen}
-		class="relative mt-16 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white"
+		class="relative mt-36 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white"
 		>CV
 		<span
 			class="absolute left-1/2 top-1/2 -z-10 h-36 w-36 origin-center -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-950 transition-transform ease-in-out hover:-translate-x-1/2 hover:-translate-y-1/2 hover:scale-125"
 		></span>
 	</button>
+	<CVButton bind:this={cvButton} />
 	<img
 		bind:this={image}
 		class="hidden h-auto w-[500px]"
@@ -66,6 +71,6 @@
 	<button
 		bind:this={closeButton}
 		on:click={playClose}
-		class="mt-5 hidden border-0 bg-transparent text-xl font-bold text-white"
-	></button>
+		class="mt-5 hidden border-0 bg-transparent text-xl font-bold text-white">Zamknij</button
+	>
 </div>
