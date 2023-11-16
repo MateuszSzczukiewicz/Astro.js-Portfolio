@@ -1,10 +1,21 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "baseUrl": ".",
+    "baseUrl": "C:/Projekty/portfolio",
     "paths": {
-      "$lib/*": ["src/*"]
-    }
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ]
+    },
   },
   "extends": "astro/tsconfigs/strict"
 }
