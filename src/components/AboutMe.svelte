@@ -27,7 +27,7 @@
 	})
 </script>
 
-<div class="flex h-screen items-center justify-start overflow-hidden bg-zinc-100">
+<article class="flex h-screen items-center justify-start overflow-hidden bg-zinc-100">
 	<div bind:this={title} class="flex h-full w-[50vw] items-center justify-center">
 		<span class="p-10 text-center text-[105px] font-bold">Dowiedz się więcej</span>
 	</div>
@@ -55,4 +55,4 @@
 		</span>
 		<span class="mt-4 text-xl">[kliknij, by zamknąć]</span>
 	</button>
-</div>
+</article>
