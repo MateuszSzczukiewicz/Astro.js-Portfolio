@@ -68,7 +68,7 @@
 	<button
 		bind:this={button}
 		on:click={playOpen}
-		class="relative mt-36 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white"
+		class="relative mt-36 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white transition hover:scale-110"
 		>CV
 		<span
 			class="absolute left-1/2 top-1/2 -z-10 h-36 w-36 origin-center -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-950 transition-transform ease-in-out hover:-translate-x-1/2 hover:-translate-y-1/2 hover:scale-125"
@@ -77,7 +77,7 @@
 	<button
 		bind:this={cvButton}
 		on:click={downloadPDF}
-		class="mt-36 border-4 border-zinc-950 px-14 py-4 text-2xl font-semibold"
+		class="mt-36 border-4 border-zinc-950 px-14 py-4 text-2xl font-semibold hover:bg-zinc-950 hover:text-zinc-100"
 	>
 		Pobierz CV
 	</button>
