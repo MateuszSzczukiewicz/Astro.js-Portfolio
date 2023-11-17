@@ -1,4 +1,6 @@
 <script>
+	export let id
+
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	let tlOpen
@@ -61,14 +63,17 @@
 </script>
 
 <article
+	{id}
 	bind:this={wrapper}
 	class="flex h-screen w-screen flex-col items-center justify-center overflow-hidden"
 >
-	<h1 bind:this={title} class="text-[105px] font-bold">Zobacz i pobierz moje CV</h1>
+	<h1 bind:this={title} class="mx-4 mt-20 text-center text-6xl font-bold sm:text-[105px]">
+		Zobacz i pobierz moje CV
+	</h1>
 	<button
 		bind:this={button}
 		on:click={playOpen}
-		class="relative mt-36 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white"
+		class="relative mt-20 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white transition hover:scale-110 sm:mt-36"
 		>CV
 		<span
 			class="absolute left-1/2 top-1/2 -z-10 h-36 w-36 origin-center -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-950 transition-transform ease-in-out hover:-translate-x-1/2 hover:-translate-y-1/2 hover:scale-125"
@@ -77,13 +82,13 @@
 	<button
 		bind:this={cvButton}
 		on:click={downloadPDF}
-		class="mt-36 border-4 border-zinc-950 px-14 py-4 text-2xl font-semibold"
+		class="my-20 border-4 border-zinc-950 px-14 py-4 text-2xl font-semibold hover:bg-zinc-950 hover:text-zinc-100"
 	>
 		Pobierz CV
 	</button>
 	<img
 		bind:this={image}
-		class="hidden h-auto w-[500px]"
+		class="hidden h-auto w-[33rem] rounded shadow-2xl"
 		src="https://a.allegroimg.com/original/113480/f6893bdd4293880393369e070e57/Edytowalny-Szablon-CV-w-MS-Word-1-22-CV"
 		alt="Moje CV"
 	/>

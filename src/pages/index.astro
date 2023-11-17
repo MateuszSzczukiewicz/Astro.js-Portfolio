@@ -8,9 +8,7 @@ import CV from '@components/CV.svelte'
 <Layout title="Mateusz Szczukiewicz">
 	<main>
 		<Home client:only="svelte" />
-		<AboutMe client:only="svelte" />
-		<div>
-			<CV client:only="svelte" />
-		</div>
+		<AboutMe id="about" client:only="svelte" />
+		<CV id="cv" client:only="svelte" />
 	</main>
 </Layout>
