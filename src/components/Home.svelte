@@ -15,52 +15,63 @@
 	let X
 
 	onMount(() => {
+		const screenWidth = window.innerWidth
 		tl = gsap.timeline()
-		tl.fromTo(bg, { x: '-100%' }, { x: 0, duration: 0.7 })
-		tl.fromTo(image, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.7 })
-		tl.fromTo(title, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
-		tl.fromTo(subtitle, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
-		tl.fromTo(button1, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
-		tl.fromTo(button2, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
 
-		tl.fromTo(linkedIn, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
-		tl.fromTo(YouTube, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
-		tl.fromTo(Facebook, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
-		tl.fromTo(X, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
+		if (screenWidth >= 640) {
+			tl.fromTo(bg, { x: '-100%' }, { x: 0, duration: 0.7 })
+			tl.fromTo(image, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.7 })
+			tl.fromTo(title, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
+			tl.fromTo(subtitle, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
+			tl.fromTo(button1, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
+			tl.fromTo(button2, { y: '100%', opacity: 0 }, { y: 0, opacity: '100%', duration: 0.4 })
+
+			tl.fromTo(linkedIn, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
+			tl.fromTo(YouTube, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
+			tl.fromTo(Facebook, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
+			tl.fromTo(X, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
+		}
 	})
 </script>
 
-<article class="h-screen items-center">
-	<div bind:this={bg} class="h-screen w-screen bg-zinc-200"></div>
-	<section>
-		<div class="absolute left-48 top-60 z-10">
-			<h1 bind:this={title} class="text-[130px] text-zinc-800">
-				Mateusz <span class="text-zinc-100">Szczukiewicz</span>
-			</h1>
-			<h2 bind:this={subtitle} class="ml-12 text-4xl text-zinc-600">FULLSTACK DEVELOPER</h2>
-		</div>
-		<div class="absolute bottom-52 left-48 flex w-fit flex-col gap-6">
+<article class="flex h-screen w-screen flex-col justify-around xl:flex-row">
+	<div bind:this={bg} class="absolute h-screen w-screen bg-zinc-200"></div>
+	<section class="z-10 ml-4 flex flex-col md:gap-4 xl:absolute xl:left-52 xl:top-60">
+		<h1 bind:this={title} class="text-6xl md:text-7xl xl:text-[130px] xl:text-zinc-800">
+			Mateusz <span class="xl:text-zinc-100">Szczukiewicz</span>
+		</h1>
+		<h2 bind:this={subtitle} class="text-2xl text-zinc-600 md:text-3xl xl:ml-12 xl:text-4xl">
+			FULLSTACK DEVELOPER
+		</h2>
+	</section>
+	<div
+		class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-around md:flex-col md:items-end"
+	>
+		<section bind:this={image} class="flex self-end sm:self-start md:self-end xl:ml-[44rem]">
+			<img
+				src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
+				alt="Moje zdjęcie"
+				class="z-0 h-56 w-auto bg-zinc-950 object-cover opacity-80 shadow-2xl md:h-96 xl:h-screen xl:w-[60rem]"
+			/>
+		</section>
+		<section
+			class="z-10 mr-8 flex flex-col items-end gap-4 lg:flex-row xl:absolute xl:bottom-52 xl:left-48 xl:flex-col"
+		>
 			<button
 				bind:this={button1}
-				class="cursor-pointer border-4 border-zinc-950 bg-zinc-100 p-4 text-center text-3xl font-semibold hover:bg-zinc-950 hover:text-zinc-100"
-				>Więcej o mnie</button
-			>
+				class="w-52 cursor-pointer border-4 border-zinc-950 bg-zinc-100 p-4 text-center text-2xl font-semibold hover:bg-zinc-950 hover:text-zinc-100 md:h-20 md:w-64"
+				>Więcej o mnie
+			</button>
 			<button
 				bind:this={button2}
-				class="cursor-pointer border-4 border-zinc-950 bg-zinc-100 p-4 text-center text-3xl font-semibold hover:bg-zinc-950 hover:text-zinc-100"
-				>Zobacz CV</button
-			>
-		</div>
-	</section>
-	<section bind:this={image} class="absolute right-64 top-0 z-0">
-		<div class="bg-zinc-700"></div>
-		<img
-			src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
-			alt="Moje zdjęcie"
-			class="z-10 h-screen w-[60rem] bg-zinc-950 object-cover opacity-80 shadow-2xl"
-		/>
-	</section>
-	<section class="absolute right-16 top-36 flex flex-col items-center gap-16">
+				class="w-52 cursor-pointer border-4 border-zinc-950 bg-zinc-100 p-4 text-center text-2xl font-semibold hover:bg-zinc-950 hover:text-zinc-100 md:h-20 md:w-64"
+				>Zobacz CV
+			</button>
+		</section>
+	</div>
+	<section
+		class="z-10 flex items-center justify-between sm:scale-75 sm:justify-center md:scale-100 xl:mx-auto xl:my-32 xl:flex-col xl:justify-around 2xl:mx-10"
+	>
 		<button bind:this={linkedIn}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

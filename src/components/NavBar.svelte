@@ -12,7 +12,9 @@
 	})
 </script>
 
-<nav class="fixed z-50 hidden h-20 w-full items-center justify-start sm:flex">
+<nav
+	class="fixed z-50 hidden h-20 w-full items-center justify-start bg-opacity-60 backdrop-blur-lg xl:flex"
+>
 	<ul bind:this={list} class="ml-32 mt-12 flex gap-10">
 		<NavItem url="/" text="O mnie" />
 		<NavItem url="/projects" text="Projekty" />
