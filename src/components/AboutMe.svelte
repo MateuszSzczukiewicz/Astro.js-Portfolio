@@ -1,4 +1,6 @@
 <script>
+	export let id
+
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	let isOpen = false
@@ -33,7 +35,10 @@
 </script>
 
 {#if isVisible}
-	<article class="flex h-screen w-screen items-center justify-start overflow-hidden bg-zinc-100">
+	<article
+		{id}
+		class="flex h-screen w-screen items-center justify-start overflow-hidden bg-zinc-100"
+	>
 		<div bind:this={title} class="flex h-full w-[50vw] items-center justify-center">
 			<span class="p-10 text-center text-[105px] font-bold">Dowiedz się więcej</span>
 		</div>
@@ -63,7 +68,10 @@
 		</button>
 	</article>
 {:else}
-	<article class="flex h-screen w-screen items-center justify-start overflow-hidden bg-zinc-100">
+	<article
+		{id}
+		class="flex h-screen w-screen items-center justify-start overflow-hidden bg-zinc-100"
+	>
 		<p class="mx-10 max-w-prose bg-zinc-200 p-4 text-justify text-lg font-semibold">
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis consectetur culpa
 			cumque cupiditate dolorum ea fuga fugiat harum iusto magni natus nobis nostrum odit, officia

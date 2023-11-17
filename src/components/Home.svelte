@@ -1,6 +1,8 @@
 <script>
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
+	import AboutMe from '@components/AboutMe.svelte'
+	import CV from '@components/CV.svelte'
 
 	let tl
 	let bg
@@ -13,6 +15,16 @@
 	let YouTube
 	let Facebook
 	let X
+
+	const scrollIntoAbout = () => {
+		const aboutSection = document.getElementById('about')
+		aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+	}
+
+	const scrollIntoCV = () => {
+		const CVSection = document.getElementById('cv')
+		CVSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+	}
 
 	onMount(() => {
 		const screenWidth = window.innerWidth
@@ -58,11 +70,13 @@
 			class="z-10 mr-8 flex flex-col items-end gap-4 lg:flex-row xl:absolute xl:bottom-52 xl:left-48 xl:flex-col"
 		>
 			<button
+				on:click={scrollIntoAbout}
 				bind:this={button1}
 				class="w-52 cursor-pointer border-4 border-zinc-950 bg-zinc-100 p-4 text-center text-2xl font-semibold hover:bg-zinc-950 hover:text-zinc-100 md:h-20 md:w-64"
 				>Więcej o mnie
 			</button>
 			<button
+				on:click={scrollIntoCV}
 				bind:this={button2}
 				class="w-52 cursor-pointer border-4 border-zinc-950 bg-zinc-100 p-4 text-center text-2xl font-semibold hover:bg-zinc-950 hover:text-zinc-100 md:h-20 md:w-64"
 				>Zobacz CV

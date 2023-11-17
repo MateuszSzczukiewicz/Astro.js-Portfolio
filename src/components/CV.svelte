@@ -1,4 +1,6 @@
 <script>
+	export let id
+
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	let tlOpen
@@ -61,6 +63,7 @@
 </script>
 
 <article
+	{id}
 	bind:this={wrapper}
 	class="flex h-screen w-screen flex-col items-center justify-center overflow-hidden"
 >
@@ -85,7 +88,7 @@
 	</button>
 	<img
 		bind:this={image}
-		class="hidden h-auto w-[500px]"
+		class="hidden h-auto w-[33rem] rounded shadow-2xl"
 		src="https://a.allegroimg.com/original/113480/f6893bdd4293880393369e070e57/Edytowalny-Szablon-CV-w-MS-Word-1-22-CV"
 		alt="Moje CV"
 	/>
