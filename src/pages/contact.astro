@@ -1,7 +1,9 @@
 ---
 import Layout from '@layouts/Layout.astro'
+import ContactForm from '@components/ContactForm.svelte'
+import FirstProject from '../components/FirstProject.svelte'
 ---
 
 <Layout title="Kontakt">
-	<h1>Kontakt</h1>
+	<ContactForm client:only="svelte" />
 </Layout>

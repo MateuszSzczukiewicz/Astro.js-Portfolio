@@ -21,12 +21,7 @@
 			</svg>
 		</a>
 		<a href="#" target="_blank">
-			<svg
-				width="25"
-				height="25"
-				xmlns="http://www.w3.org/2000/svg"
-				class="hover:scale-125"
-				viewBox="0 0 100 100"
+			<svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
 				><path
 					fill-rule="evenodd"
 					clip-rule="evenodd"
