@@ -1,8 +1,6 @@
 <script>
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
-	import AboutMe from '@components/AboutMe.svelte'
-	import CV from '@components/CV.svelte'
 
 	let tl
 	let bg
