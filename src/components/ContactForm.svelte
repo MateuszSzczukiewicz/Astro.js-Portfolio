@@ -63,8 +63,7 @@
 					/>
 				</div>
 				<div class="sm:col-span-2">
-					<label for="message" class="text-md mb-2 block font-medium text-gray-900"
-						>Twoja wiadomość</label
+					<label for="message" class="text-md mb-2 block font-medium text-gray-900">Wiadomość</label
 					>
 					<textarea
 						name="message"

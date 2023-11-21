@@ -1,19 +1,141 @@
 ---
 title: 'Komponenty klasowe? Potrzymaj mi stan! - Czyli, czym właściwie jest ten „useState”?'
 description: 'Czym jest i jak używać Hooka useState'
-pubDate: 'Nov 19 2023'
+pubDate: 'Nov 20 2023'
 heroImage: '/React.png'
 ---
 
-This theme comes with the [@astrojs/mdx](https://docs.astro.build/en/guides/integrations-guide/mdx/) integration installed and configured in your `astro.config.mjs` config file. If you prefer not to use MDX, you can disable support by removing the integration from your config file.
+# Wprowadzenie do React Hooks
 
-## Why MDX?
+W dawnych, wręcz prehistorycznych czasach dla ludzi, w Reakcie dzieliło się komponenty na klasowe, używające znanego programowania zorientowanego obiektowo, oraz funkcyjne. Funkcyjne komponenty, których składnię już pewnie znacie, były wykorzystywane do prostych zadań, takich jak wyświetlanie JSX-a. Jednakże, gdy aplikacja wymagała przetrzymywania lokalnego stanu lub korzystania z cyklu życia komponentu, ludzkość sięgała po broń większego kalibru - komponenty klasowe.
 
-MDX is a special flavor of Markdown that supports embedded JavaScript & JSX syntax. This unlocks the ability to [mix JavaScript and UI Components into your Markdown content](https://docs.astro.build/en/guides/markdown-content/#mdx-features) for things like interactive charts or alerts.
+## Komponenty klasowe
 
-If you have existing content authored in MDX, this integration will hopefully make migrating to Astro a breeze.
+Rzemieślnik, posługujący się dłutem kodu, musiał zainicjować komponent klasowy, używając słówka „class” i rozszerzając je o „Component” z biblioteki „React”. Następnie, po zainicjowaniu konstruktora, przypisywał wartość początkową stanu:
 
-## Example
+```jsx
 
-Here is how you import and use a UI component inside of MDX.
-When you open this page in the browser, you should see the clickable button below.
+	import React from 'react'
+	class CounterClass extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = { count: 0 };
+		}
+
+		increment = () => {
+			this.setState({ count: this.state.count + 1 });
+		};
+
+		render() {
+			return (
+				<div>
+					<p>Liczba: {this.state.count}</p>
+					<button onClick={this.increment}>Zwiększ</button>
+				</div>
+			);
+		}
+	}
+
+
+```
+
+I w ten sposób licznik był już gotowy i oddany do pieca do wypalenia. Ale to było dawniej. Rok 2017 przyniósł w tej kwestii istną rewolucję przemysłową, człowiek znalazł na to haczyk.
+I to dosłownie, bo dzięki hookom, nie trzeba było się już martwić konstruktorem, thisem, czy tworzeniem klasowego komponentu, teraz wszystko mieliśmy w przyjaznej formie.
+Kowal mógł wykorzystać już do poważnej pracy komponent funkcyjny i od razu w hooku „useState” zainicjalizować wartość „count” oraz funkcję „useCount”, będącą „setterem”. Następnie musiał tylko podać początkową wartość „count”, będącą wartością stanu przy pierwszym pojawieniu się komponentu i inicjalizację stanu miał już gotową:
+
+```jsx
+
+	const Counter = () => {
+		const [count, setCount] = useState(0);
+	}
+
+
+```
+
+Podobnie jak w komponencie klasowym, kowal stworzyłby funkcję „increment” i używając settera „setCount”, do aktualnej wartości stanu dodałby wartość jeden. Dzięki temu identycznie jak w poprzednim przykładnie, naciśnięcie przycisku zwiększałoby wartość stanu:
+
+```jsx
+
+	const increment = () => {
+		setCount(count + 1);
+	};
+
+	return (
+	<div>
+		<p>Liczba: {count}</p>
+		<button onClick={increment}>Zwiększ</button>
+	</div>
+	);
+	};
+
+
+```
+
+Warto tu również pamiętać o argumencie „prevState”, czyli aktualnej wartości stanu. Użycie w „setterze” prostego dodania do „count” jeden, mogłoby nam przysporzyć wiele niepotrzebnych problemów. Na przykład gdy chcemy, by w funkcji „increment” wartość stanu zwiększała się o jeden, a następnie została pomnożona przed dwa. Zapominając na chwilę o „prevState”, moglibyśmy napisać to tak:
+
+```jsx
+
+	setCount(count + 1);
+	setCount(count * 2);
+
+
+```
+
+Pamiętając, że początkową wartością było 0, aplikacja dodałaby do tej wartości jeden, a następnie tą samą wartość początkową pomnożyłaby przez dwa. W efekcie dostalibyśmy znów 0. Stosując funkcję strzałkową z argumentem definiującym poprzedni stan, który możemy nazwać dowolnie, naprawilibyśmy ten błąd, a także zabezpieczyli się przed kolejnymi takimi nieudanymi kalkulacjami:
+
+```jsx
+
+	setCount(prevCount => prevCount + 1);
+	setCount(prevCount => prevCount * 2);
+
+
+```
+
+W tym przypadku aplikacja dodałaby do wartości początkowej 1, a następnie poprzednią wartość, czyli 1 pomonożyłaby przez dwa i finalnie otrzymalibyśmy prawidłowy wynik (0 + 1) * 2 = 2.
+Lecz ten zapis mamy dzięki jeszcze jednemu wynalazkowi ostatnich lat – destrukturyzacji tablic!
+
+Bo znów, gdyby nie to, hooki nie byłyby tak przyjemne. Ale odkopując tego trupa zobaczymy, dlaczego o tablice w tym wszystkim chodzi. Gdyby farmer, do zbierania plonów lokalnego stanu musiał używać sierpa, na samym początku do zmiennej stateArray przypisałby „useState” z początkową wartością. Kolejno, do zmiennej „count” - pierwsze miejsce w tablicy, a dla funkcji „setCount” – drugie:
+
+```jsx
+
+	var stateArray = React.useState(0);
+	var count = stateArray[0];
+	var setCount = stateArray[1];
+
+
+```
+
+Na szczęście dzięki standardowi z 2015 roku, możemy przypisać od razu do zmiennej, pierwszą i drugą wartość tablicy i nadać jej pełną moc „useState” ze stanem początkowym. Taki farmer, mógłby już zbierać stan za pomocą prawdziwego kombajnu!
+
+Ale mimo ewidentnych zalet używania kombajnu, jakim jest szybkość i wydajność pracy, niesie on również pewne ryzko, gdyż można się zagapić i niechybnie pod niego wpaść. Tak jest również z naszym „useState”.
+Wspominałem już o niebezpieczeństwie związanym z aktualizacją stanu, jednakże, co jeśli stanem nie jest wartość prymitywna, jak number, strign, czy boolean, tylko obiekt?
+Nasz kowal oprócz wartości count, chce dodać wartość step, w tym celu używa ogólnej wartości counterState i nadaje im wartość początkową, kolejno 0 i 1. W tym momencie ma już gotową inicjalizację stanu useState:
+
+```jsx
+
+	const Counter = () => {
+	const [counterState, setCounterState] = useState({
+		count: 0,
+		step: 1,
+	});
+
+
+```
+
+Teraz przychodzi czas, by dokonał inkrementacji count, o wartość step, jednak tutaj drapie się po głowie. Gdy do setCounterState wprowadzi funkcję strzałkową, która do poprzedniego stanu count doda poprzedni stan step, ten właśnie step nie zostanie w ogóle w tej funkcji wspomniany! Lecz kowal ma na to sposób. W momencie, gdy nie chce on zmieniać wartości step, używa on spread operatora (…prevState), by zawrzeć w funkcji setCounterState pozostałe wartości obiektu.
+
+```jsx
+
+  const increment = () => {
+    setCounterState(prevState => ({
+      ...prevState,
+      count: prevState.count + prevState.step,
+    }));
+  };
+
+
+```
+
+UseState mimo niektórych swoich pułapek jest hookiem, któru potrafi ułatwić nam życie i umożliwić pisanie aplikacji reaktowych bez pamiętania o komponentach klasowych. Robi to doskonale również z innym hookiem – useEffect. Jednakże, w mojej opinii największym problemem z useState jest jego nadużywanie. Przez swoją prostotę i popularność, może przyćmić niektóre inne hooki, takie jak useRef, czy useMemo, które sprawdzą się lepiej w niektórych sytuacjach. Ponadto stan, który ten hook przetrzymuje bywa bardzo ulotny. Wystarczy tylko wejść na inną podstroję, a state wyparowuje jak kropelka wody. Na szczęście są na to sposoby nie dostępne w samym reakcie, lecz powszechnie stosowane na przykład w Next.js, mówię tu o useSearchParams, czy zostoswanie stanu globalnego w Redux lub MobX . Niemniej, useState był jest i będzie szalenie wygodnym i przydatnym narzędzie, o tyle, o ile wykorzystujemy go świadomie i w granicach rozsądku.
+
+
