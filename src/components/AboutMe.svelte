@@ -68,11 +68,8 @@
 		</button>
 	</article>
 {:else}
-	<article
-		{id}
-		class="flex h-screen w-screen items-center justify-start overflow-hidden bg-zinc-100"
-	>
-		<p class="mx-10 max-w-prose bg-zinc-200 p-4 text-justify text-lg font-semibold">
+	<article {id} class="flex h-full w-screen items-center justify-start overflow-hidden bg-zinc-100">
+		<p class="m-10 max-w-prose bg-zinc-200 p-4 text-justify text-lg font-semibold">
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis consectetur culpa
 			cumque cupiditate dolorum ea fuga fugiat harum iusto magni natus nobis nostrum odit, officia
 			porro quam sunt vitae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi
