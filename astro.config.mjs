@@ -6,6 +6,7 @@ import tailwind from '@astrojs/tailwind';
 import vercel from '@astrojs/vercel/static';
 
 export default defineConfig({
+  site: 'http://mateuszszczukiewicz.verce.app',
   integrations: [svelte(), tailwind(), mdx(), sitemap(),],
   adapter: vercel(),
 });
