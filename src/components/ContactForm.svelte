@@ -19,7 +19,7 @@
 	})
 </script>
 
-<main class="h-full w-screen">
+<main class="h-full w-screen xl:h-screen">
 	<div bind:this={bg} class="absolute -z-10 h-screen w-screen bg-zinc-100"></div>
 	<section class="py-20">
 		<div class="mx-auto max-w-screen-md px-4 py-8 lg:py-16">

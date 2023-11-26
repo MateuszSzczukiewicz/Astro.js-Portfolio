@@ -1,7 +1,42 @@
+<script>
+	import gsap from 'gsap'
+	import { onMount } from 'svelte'
+
+	let tl
+	let firstSVG
+	let secondSVG
+	let thirdSVG
+	let fourthSVG
+	let fifthSVG
+	let sixthSVG
+	let seventhSVG
+	let eighthSVG
+
+	onMount(() => {
+		const screenWidth = window.innerWidth
+		tl = gsap.timeline()
+
+		if (screenWidth >= 640) {
+			tl.fromTo(
+				firstSVG,
+				{ y: '-100%', opacity: 0 },
+				{ y: 0, opacity: 1, duration: 0.2, delay: 2.2 }
+			)
+			tl.fromTo(secondSVG, { y: '-100%', opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 })
+			tl.fromTo(thirdSVG, { y: '-100%', opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 })
+			tl.fromTo(fourthSVG, { y: '-100%', opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 })
+			tl.fromTo(fifthSVG, { y: '-100%', opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 })
+			tl.fromTo(sixthSVG, { y: '-100%', opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 })
+			tl.fromTo(seventhSVG, { y: '-100%', opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 })
+			tl.fromTo(eighthSVG, { y: '-100%', opacity: 0 }, { y: 0, opacity: 1, duration: 0.2 })
+		}
+	})
+</script>
+
 <div
 	class="mx-auto mb-10 grid grid-cols-4 gap-6 sm:mt-8 sm:grid-cols-8 xl:mb-0 xl:h-40 xl:grid-cols-8"
 >
-	<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
+	<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" bind:this={firstSVG}
 		><path
 			d="M57.143 32h-16v4.57h10.97c-1.6 6.857-6.63 12.57-13.257 14.857L12.57 25.143c2.743-8 10.514-13.714 19.43-13.714 6.857 0 13.03 3.43 16.914 8.686l3.43-2.97C47.77 10.97 40.457 6.857 32 6.857c-11.886 0-21.943 8.457-24.457 19.657l30.17 30.17c10.97-2.743 19.43-12.8 19.43-24.686zm-50.286.23c0 6.4 2.514 12.57 7.314 17.37s11.2 7.314 17.37 7.314z"
 			fill="#fff"
@@ -11,6 +46,7 @@
 		/>
 	</svg>
 	<svg
+		bind:this={secondSVG}
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="-11.5 -10.23174 23 20.46348"
 		width="64"
@@ -24,6 +60,7 @@
 		</g>
 	</svg>
 	<svg
+		bind:this={thirdSVG}
 		width="64"
 		height="64"
 		viewBox="0 0 256 256"
@@ -53,6 +90,7 @@
 		</g>
 	</svg>
 	<svg
+		bind:this={fourthSVG}
 		viewBox="0 0 318 318"
 		xmlns="http://www.w3.org/2000/svg"
 		xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -80,7 +118,12 @@
 			></g
 		></svg
 	>
-	<svg height="64" viewBox="20.8 4.2 358.4 391.6" width="64" xmlns="http://www.w3.org/2000/svg"
+	<svg
+		bind:this={fifthSVG}
+		height="64"
+		viewBox="20.8 4.2 358.4 391.6"
+		width="64"
+		xmlns="http://www.w3.org/2000/svg"
 		><g fill="#e535ab"
 			><path d="m57.468 302.66-14.376-8.3 160.15-277.38 14.376 8.3z" /><path
 				d="m39.8 272.2h320.3v16.6h-320.3z"
@@ -96,6 +139,7 @@
 		></svg
 	>
 	<svg
+		bind:this={sixthSVG}
 		width="64"
 		height="64"
 		viewBox="-1.5 0 259 259"
@@ -119,6 +163,7 @@
 		</g>
 	</svg>
 	<svg
+		bind:this={seventhSVG}
 		height="64"
 		viewBox="-2.138 -2.29 314.9 359.304"
 		width="64"
@@ -257,7 +302,12 @@
 			opacity=".4"
 		/></svg
 	>
-	<svg width="64" height="64" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
+	<svg
+		bind:this={eighthSVG}
+		width="64"
+		height="64"
+		viewBox="0 0 32 32"
+		xmlns="http://www.w3.org/2000/svg"
 		><title>file_type_jest_snapshot</title><path
 			d="M27.089,15.786a2.606,2.606,0,0,0-2.606-2.606c-.093,0-.184.005-.274.014l3.58-10.557H12.577l3.574,10.548c-.052,0-.105-.005-.158-.005a2.607,2.607,0,0,0-.792,5.09,11.375,11.375,0,0,1-2.049,2.579A10.443,10.443,0,0,1,9.5,23.116a3.324,3.324,0,0,1-1.665-4.23c.077-.18.155-.362.23-.544a2.608,2.608,0,1,0-2.09-.4,20.08,20.08,0,0,0-1.889,4.788c-.354,2.135,0,4.4,1.845,5.681,4.3,2.981,8.969-1.848,13.891-3.061,1.784-.44,3.742-.369,5.313-1.28a4.443,4.443,0,0,0,2.179-3.088,4.639,4.639,0,0,0-.831-3.521,2.6,2.6,0,0,0,.606-1.671ZM18.6,15.8v-.009a2.605,2.605,0,0,0-1.256-2.23L20.188,7.8l2.85,5.814a2.6,2.6,0,0,0-1.161,2.169c0,.019,0,.038,0,.057L18.6,15.8Z"
 			style="fill:#99425b"

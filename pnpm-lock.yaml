@@ -26,6 +26,9 @@ dependencies:
   '@astrojs/vercel':
     specifier: ^5.2.0
     version: 5.2.0(astro@3.4.3)
+  '@fontsource/twinkle-star':
+    specifier: ^5.0.17
+    version: 5.0.17
   '@splidejs/svelte-splide':
     specifier: ^0.2.9
     version: 0.2.9
@@ -1018,6 +1021,10 @@ packages:
     resolution: {integrity: sha512-Kn7K8dx/5U6+cT1yEhpX1w4PCSg0M+XyRILPgvwcEBjerFWCwQj5sbr3/VmxqV0JGHCBCzyd6LxypEuehypY1w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@fontsource/twinkle-star@5.0.17:
+    resolution: {integrity: sha512-Y8geTc67IQ0YXrSLqAqFoyT8bCx3CaY/0FaWAOXEBEpq2hgkuti5DtpHo8v2kIjGTTNcbsP9zbVHARL4cGlrJA==}
+    dev: false
 
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
