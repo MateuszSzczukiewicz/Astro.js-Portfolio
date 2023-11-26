@@ -23,6 +23,6 @@ import { ViewTransitions } from 'astro:transitions'
 	<body class="overflow-x-hidden">
 		<NavBar client:only="svelte" />
 		<slot />
-		<Footer />
+		<Footer client:only="svelte" />
 	</body>
 </html>
