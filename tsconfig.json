@@ -16,6 +16,10 @@
         "src/pages/*"
       ]
     },
-  },
+    "plugins": [
+      {
+        "name": "@astrojs/svelte"
+      },
+    ]},
   "extends": "astro/tsconfigs/strict"
 }

@@ -1,4 +1,6 @@
 <script lang="ts">
+	// export const target
+
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
