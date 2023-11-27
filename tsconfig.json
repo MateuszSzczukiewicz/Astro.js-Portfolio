@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "esnext",
     "baseUrl": "C:/Projekty/portfolio",
+    "verbatimModuleSyntax": true,
     "paths": {
       "@assets/*": [
         "src/assets/*"
