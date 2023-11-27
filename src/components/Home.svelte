@@ -1,26 +1,30 @@
-<script>
+<script lang="ts">
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl
-	let bg
-	let image
-	let title
-	let subtitle
-	let button1
-	let button2
-	let linkedIn
-	let GitHub
-	let YouTube
+	let tl: gsap.core.Timeline
+	let bg: GSAPTweenTarget
+	let image: GSAPTweenTarget
+	let title: GSAPTweenTarget
+	let subtitle: GSAPTweenTarget
+	let button1: GSAPTweenTarget
+	let button2: GSAPTweenTarget
+	let linkedIn: GSAPTweenTarget
+	let GitHub: GSAPTweenTarget
+	let YouTube: GSAPTweenTarget
 
 	const scrollIntoAbout = () => {
-		const aboutSection = document.getElementById('about')
-		aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		const aboutSection: HTMLElement | null = document.getElementById('about')
+		if (aboutSection) {
+			aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		}
 	}
 
 	const scrollIntoCV = () => {
-		const CVSection = document.getElementById('cv')
-		CVSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		const CVSection: HTMLElement | null = document.getElementById('cv')
+		if (CVSection) {
+			CVSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		}
 	}
 
 	onMount(() => {

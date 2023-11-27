@@ -1,16 +1,16 @@
-<script>
+<script lang="ts">
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl
-	let firstSVG
-	let secondSVG
-	let thirdSVG
-	let fourthSVG
-	let fifthSVG
-	let sixthSVG
-	let seventhSVG
-	let eighthSVG
+	let tl: gsap.core.Timeline
+	let firstSVG: GSAPTweenTarget
+	let secondSVG: GSAPTweenTarget
+	let thirdSVG: GSAPTweenTarget
+	let fourthSVG: GSAPTweenTarget
+	let fifthSVG: GSAPTweenTarget
+	let sixthSVG: GSAPTweenTarget
+	let seventhSVG: GSAPTweenTarget
+	let eighthSVG: GSAPTweenTarget
 
 	onMount(() => {
 		const screenWidth = window.innerWidth
@@ -143,7 +143,6 @@
 		width="64"
 		height="64"
 		viewBox="-1.5 0 259 259"
-		version="1.1"
 		xmlns="http://www.w3.org/2000/svg"
 		xmlns:xlink="http://www.w3.org/1999/xlink"
 	>

@@ -1,21 +1,21 @@
-<script>
+<script lang="ts">
 	import NavItem from '@components/NavItem.svelte'
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	import { Hamburger } from 'svelte-hamburgers'
 
-	let open = false
-	let isVisible
+	let open: any
+	let isVisible: boolean
 
-	const screenWidth = window.innerWidth
+	const screenWidth: number = window.innerWidth
 	isVisible = screenWidth < 1280
 
-	let tl
-	let list
+	let tl: gsap.core.Timeline
+	let list: HTMLUListElement
 
 	onMount(() => {
 		tl = gsap.timeline()
-		tl.fromTo(list, { x: '-100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 1 })
+		tl.fromTo(list, { x: '-100%', opacity: 0 }, { x: 0, opacity: 1, duration: 1 })
 	})
 </script>
 

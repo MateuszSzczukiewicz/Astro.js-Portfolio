@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
 	import FirstProjectSVG from '@components/FirstProjectSVG.svelte'
 	import SecondProject from '@components/SecondProjectSVG.svelte'
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl
-	let bg
-	let header
-	let image
-	let p
+	let tl: gsap.core.Timeline
+	let bg: GSAPTweenTarget
+	let header: GSAPTweenTarget
+	let image: GSAPTweenTarget
+	let p: GSAPTweenTarget
 
 	onMount(() => {
 		const screenWidth = window.innerWidth
@@ -28,7 +28,7 @@
 	<article class="mx-auto flex h-full w-10/12 flex-col py-20">
 		<h1
 			bind:this={header}
-			class="mb-10 text-center font-serif text-5xl xl:mb-0 xl:mr-20 xl:self-end xl:text-[100px]"
+			class="mb-10 text-center text-5xl xl:mb-0 xl:mr-20 xl:self-end xl:text-[100px]"
 		>
 			L.A. Yachting
 		</h1>
@@ -58,9 +58,7 @@
 <section class="xl:h-screen xl:w-screen">
 	<div class="absolute -z-10 h-full w-full bg-zinc-100"></div>
 	<article class="mx-auto flex h-full w-10/12 flex-col py-20">
-		<h1
-			class="mb-10 text-center text-5xl font-semibold xl:mb-0 xl:mr-40 xl:self-end xl:text-[100px]"
-		>
+		<h1 class="mb-10 text-center text-5xl xl:mb-0 xl:mr-40 xl:self-end xl:text-[100px]">
 			BookFreak
 		</h1>
 		<div class="items-center justify-center xl:flex xl:flex-row">
