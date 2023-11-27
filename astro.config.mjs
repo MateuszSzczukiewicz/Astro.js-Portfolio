@@ -8,6 +8,13 @@ import vercel from '@astrojs/vercel/static';
 export default defineConfig({
   site: 'http://mateuszszczukiewicz.verce.app',
   integrations: [svelte(), tailwind(), mdx(), sitemap(),],
-  output: 'static',
+  dist: './dist',
+  public: './public',
+  buildOptions: {
+    sitemap: true,
+  },
   adapter: vercel(),
+  renderers: [
+    "@astrojs/renderer-svelte"
+  ],
 });
