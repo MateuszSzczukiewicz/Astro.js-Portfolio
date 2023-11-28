@@ -29,8 +29,9 @@
 	<nav bind:this={open}>
 		<ul bind:this={list} class="flex flex-col items-center">
 			<NavItem url="/" text="O mnie" />
-			<NavItem url="/blog" text="Blog" />
 			<NavItem url="/projects" text="Projekty" />
+			<NavItem url="/coaching" text="Korepetycje" />
+			<NavItem url="/blog" text="Blog" />
 			<NavItem url="/contact" text="Kontakt" />
 		</ul>
 	</nav>
@@ -39,8 +40,9 @@
 <nav class="fixed z-50 hidden h-20 w-full items-center bg-opacity-20 backdrop-blur-lg xl:flex">
 	<ul class="ml-32 mt-12 flex gap-10">
 		<NavItem url="/" text="O mnie" />
-		<NavItem url="/blog" text="Blog" />
 		<NavItem url="/projects" text="Projekty" />
+		<NavItem url="/coaching" text="Korepetycje" />
+		<NavItem url="/blog" text="Blog" />
 		<NavItem url="/contact" text="Kontakt" />
 	</ul>
 </nav>

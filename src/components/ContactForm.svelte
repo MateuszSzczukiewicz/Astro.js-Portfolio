@@ -3,9 +3,9 @@
 	import { onMount } from 'svelte'
 
 	let tl: gsap.core.Timeline
-	let header: HTMLDivElement
-	let bg: HTMLDivElement
-	let form: HTMLFormElement
+	let header: GSAPTweenTarget
+	let bg: GSAPTweenTarget
+	let form: GSAPTweenTarget
 
 	onMount(() => {
 		const screenWidth = window.innerWidth
