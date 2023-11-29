@@ -1,10 +1,10 @@
 ---
 import Layout from '@layouts/Layout.astro'
-import ProjectsSvelte from '@components/ProjectsSvelte.svelte'
+import AllProjects from '../components/AllProjects.svelte'
 ---
 
 <Layout title="Projekty">
 	<main>
-		<ProjectsSvelte client:only="svelte" />
+		<AllProjects client:load />
 	</main>
 </Layout>

@@ -1,5 +1,5 @@
-<script>
-	export let date
+<script lang="ts">
+	export let date: Date
 </script>
 
 <time datetime={date.toISOString()}>

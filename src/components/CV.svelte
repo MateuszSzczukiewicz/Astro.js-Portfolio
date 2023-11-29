@@ -1,20 +1,22 @@
-<script>
-	export let id
+<script lang="ts">
+	export let id: string
 
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
-	let tlOpen
-	let tlClose
-	let button
-	let closeButton
-	let title
-	let wrapper
-	let image
-	let cvButton
 
-	const playOpen = () => tlOpen.play()
+	let tlOpen: gsap.core.Timeline
+	let tlClose: gsap.core.Timeline
+	let button: GSAPTweenTarget
+	let closeButton: GSAPTweenTarget
+	let title: GSAPTweenTarget
+	let wrapper: GSAPTweenTarget
+	let image: GSAPTweenTarget
+	let cvButton: GSAPTweenTarget
+	let span: GSAPTweenTarget
 
-	const playClose = () => tlOpen.reverse()
+	const playOpen = () => tlOpen?.play()
+
+	const playClose = () => tlOpen?.reverse()
 
 	onMount(() => {
 		tlOpen = gsap.timeline({ paused: true })
@@ -25,7 +27,7 @@
 				.to(title, { opacity: '0', y: '-=50px', duration: 0.2 })
 				.to(cvButton, { opacity: '0', y: '-=50px', duration: 0.2 })
 				.to(
-					button.children[0],
+					span,
 					{
 						scale: 25,
 						duration: 1
@@ -39,11 +41,7 @@
 				.set(button, { display: 'none' })
 				.set(closeButton, { display: 'block' })
 				.set(image, { display: 'block' })
-				.fromTo(
-					[image, closeButton],
-					{ opacity: '0', y: '+=50px' },
-					{ opacity: '1', y: '0', stagger: '0.2' }
-				)
+				.fromTo([image, closeButton], { opacity: '0', y: '+=50px' }, { opacity: '1', y: '0' })
 		}
 	})
 
@@ -76,6 +74,7 @@
 		class="relative mt-20 h-36 w-36 rounded-[100px] border-0 bg-transparent text-5xl font-bold text-white transition hover:scale-110 sm:mt-36"
 		>CV
 		<span
+			bind:this={span}
 			class="absolute left-1/2 top-1/2 -z-10 h-36 w-36 origin-center -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-950 transition-transform ease-in-out hover:-translate-x-1/2 hover:-translate-y-1/2 hover:scale-125"
 		></span>
 	</button>

@@ -1,26 +1,31 @@
-<script>
+<script lang="ts">
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl
-	let bg
-	let image
-	let title
-	let subtitle
-	let button1
-	let button2
-	let linkedIn
-	let GitHub
-	let YouTube
+	let tl: gsap.core.Timeline
+	let bg: GSAPTweenTarget
+	let image: GSAPTweenTarget
+	let title: GSAPTweenTarget
+	let subtitle: GSAPTweenTarget
+	let button1: GSAPTweenTarget
+	let button2: GSAPTweenTarget
+	let linkedIn: GSAPTweenTarget
+	let GitHub: GSAPTweenTarget
+	let YouTube: GSAPTweenTarget
+	let Medium: GSAPTweenTarget
 
 	const scrollIntoAbout = () => {
-		const aboutSection = document.getElementById('about')
-		aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		const aboutSection: HTMLElement | null = document.getElementById('about')
+		if (aboutSection) {
+			aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		}
 	}
 
 	const scrollIntoCV = () => {
-		const CVSection = document.getElementById('cv')
-		CVSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		const CVSection: HTMLElement | null = document.getElementById('cv')
+		if (CVSection) {
+			CVSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		}
 	}
 
 	onMount(() => {
@@ -38,6 +43,7 @@
 			tl.fromTo(linkedIn, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
 			tl.fromTo(GitHub, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
 			tl.fromTo(YouTube, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
+			tl.fromTo(Medium, { x: '100%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.2 })
 		}
 	})
 </script>
@@ -80,7 +86,7 @@
 		</section>
 	</div>
 	<section
-		class="z-10 flex items-center justify-between sm:scale-75 sm:justify-center md:scale-100 xl:mx-auto xl:my-32 xl:flex-col xl:justify-around 2xl:mx-10"
+		class="z-10 flex scale-90 items-center justify-between sm:scale-75 sm:justify-center md:scale-100 xl:mx-auto xl:my-32 xl:flex-col xl:justify-around 2xl:mx-10"
 	>
 		<button bind:this={linkedIn}>
 			<svg
@@ -125,6 +131,24 @@
 				<path
 					d="M53.527,17.427C55.714,19.677,56,23.252,56,32s-0.286,12.323-2.473,14.573C51.34,48.822,49.062,49,32,49	s-19.34-0.178-21.527-2.427C8.286,44.323,8,40.748,8,32s0.286-12.323,2.473-14.573S14.938,15,32,15S51.34,15.178,53.527,17.427z M27.95,39.417l12.146-7.038L27.95,25.451V39.417z"
 				></path>
+			</svg>
+		</button>
+		<button bind:this={Medium}>
+			<svg
+				width="100"
+				height="100"
+				viewBox="0 -55 256 256"
+				xmlns="http://www.w3.org/2000/svg"
+				preserveAspectRatio="xMidYMid"
+				class="hover:scale-125"
+			>
+				<g>
+					<path
+						d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z"
+						fill="#000000"
+					>
+					</path>
+				</g>
 			</svg>
 		</button>
 	</section>

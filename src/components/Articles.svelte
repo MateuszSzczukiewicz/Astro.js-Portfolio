@@ -1,21 +1,38 @@
-<script>
+<script lang="ts">
 	import { getCollection } from 'astro:content'
 	import { onMount } from 'svelte'
 	import FormattedDate from '@components/FormattedDate.svelte'
 
-	let posts = []
+	interface Post {
+		slug: string
+		data: {
+			pubDate: Date
+			heroImage: string | undefined
+			title: string
+		}
+	}
+
+	let posts: Post[] = []
 
 	onMount(async () => {
-		posts = (await getCollection('blog')).sort(
-			(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-		)
+		const rawPosts = await getCollection('blog')
+		posts = rawPosts
+			.map((post) => ({
+				slug: post.slug,
+				data: {
+					pubDate: post.data.pubDate,
+					heroImage: post.data.heroImage || undefined,
+					title: post.data.title
+				}
+			}))
+			.sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
 	})
 </script>
 
 <main>
 	<section class="h-screen min-h-screen w-screen py-20 lg:pt-40">
 		<ul class="mx-auto grid w-80 grid-cols-1 gap-16 lg:w-[50rem] lg:grid-cols-2 xl:w-[70rem]">
-			{#each posts as post}
+			{#each posts as post (post.slug)}
 				<li class="flex flex-col transition hover:scale-110">
 					<a href={`/blog/${post.slug}/`}>
 						<img

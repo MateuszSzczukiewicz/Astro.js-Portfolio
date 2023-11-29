@@ -1,5 +1,5 @@
-<script>
-	export let url, text
+<script lang="ts">
+	export let url: string, text: string
 </script>
 
 <li

@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl
-	let header
-	let bg
-	let form
+	let tl: gsap.core.Timeline
+	let header: GSAPTweenTarget
+	let bg: GSAPTweenTarget
+	let form: GSAPTweenTarget
 
 	onMount(() => {
 		const screenWidth = window.innerWidth
@@ -25,7 +25,7 @@
 		<div class="mx-auto max-w-screen-md px-4 py-8 lg:py-16">
 			<div bind:this={header}>
 				<h2 class="mb-4 text-center text-4xl font-extrabold tracking-tight text-zinc-900">
-					Skantaktuj się ze mną
+					Skontaktuj się ze mną
 				</h2>
 				<p class="mb-8 text-center font-light text-gray-500 sm:text-xl lg:mb-16">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias autem dicta est
@@ -77,7 +77,8 @@
 				<button
 					type="submit"
 					class="text-md w-full rounded-lg bg-zinc-800 px-5 py-3 text-center font-medium text-white transition hover:scale-105 hover:bg-zinc-950"
-					>Wyślij
+				>
+					Wyślij
 				</button>
 			</form>
 		</div>

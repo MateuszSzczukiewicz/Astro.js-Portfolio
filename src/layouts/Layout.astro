@@ -3,10 +3,6 @@ import NavBar from '@components/NavBar.svelte'
 import Footer from '@components/Footer.svelte'
 const { title } = Astro.props
 import { ViewTransitions } from 'astro:transitions'
-
-// interface Props {
-// 	title: string
-// }
 ---
 
 <!doctype html>
@@ -23,6 +19,6 @@ import { ViewTransitions } from 'astro:transitions'
 	<body class="overflow-x-hidden">
 		<NavBar client:only="svelte" />
 		<slot />
-		<Footer />
+		<Footer client:visible />
 	</body>
 </html>
