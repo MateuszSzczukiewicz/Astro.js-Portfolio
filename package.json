@@ -20,6 +20,7 @@
     "@fontsource/twinkle-star": "^5.0.17",
     "@splidejs/svelte-splide": "^0.2.9",
     "@sveltejs/enhanced-img": "^0.1.2",
+    "@tailwindcss/typography": "^0.5.10",
     "astro": "^3.4.3",
     "gsap": "^3.12.2",
     "html2pdf": "^0.0.11",
