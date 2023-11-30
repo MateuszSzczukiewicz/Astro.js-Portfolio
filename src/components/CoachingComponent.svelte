@@ -2,7 +2,6 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	import CoachingSVG from '../components/CoachingSVG.svelte'
-	import CoachingImg from '../../public/images/coaching.webp'
 
 	let tl: gsap.core.Timeline
 	let bg: GSAPTweenTarget
@@ -32,7 +31,7 @@
 			<img
 				bind:this={img}
 				class="my-10 hidden h-80 w-10/12 rounded-2xl object-cover shadow-2xl md:block xl:h-[30rem]"
-				src={CoachingImg.src}
+				src="../assets/coaching.webp"
 				alt="Korepetycje"
 			/>
 			<p
