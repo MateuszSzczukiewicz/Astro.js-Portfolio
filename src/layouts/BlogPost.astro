@@ -31,16 +31,14 @@ const { title, description, pubDate, heroImage } = Astro.props
 						)
 					}
 				</div>
-				<div class="text-lg leading-8">
-					<div class="mb-10">
-						<div class="mb-10 text-xl">
-							<FormattedDate date={pubDate} />
-						</div>
-						<h1 class="mb-10 text-center text-5xl font-bold leading-relaxed">{title}</h1>
-						<hr />
+				<div class="mb-10">
+					<div class="mb-10 text-xl">
+						<FormattedDate date={pubDate} />
 					</div>
-					<slot />
+					<h1 class="mb-10 text-center text-5xl font-bold leading-relaxed">{title}</h1>
+					<hr />
 				</div>
+				<slot />
 			</article>
 		</main>
 		<Footer client:visible />

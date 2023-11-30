@@ -2,25 +2,6 @@
   "compilerOptions": {
     "module": "esnext",
     "baseUrl": ".",
-    "verbatimModuleSyntax": true,
-    "paths": {
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@layouts/*": [
-        "src/layouts/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ]
-    },
-    "plugins": [
-      {
-        "name": "@astrojs/svelte"
-      },
-    ]},
+},
   "extends": "astro/tsconfigs/strict"
 }

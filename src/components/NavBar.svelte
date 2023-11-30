@@ -1,5 +1,5 @@
 <script lang="ts">
-	import NavItem from '@components/NavItem.svelte'
+	import NavItem from '../components/NavItem.svelte'
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	import { Hamburger } from 'svelte-hamburgers'
@@ -10,7 +10,7 @@
 	const screenWidth: number = window.innerWidth
 	isVisible = screenWidth < 1280
 
-	let tl: gsap.core.Timeline
+	let tl: gsap.core.timeline
 	let list: HTMLUListElement
 
 	onMount(() => {

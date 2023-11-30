@@ -4,8 +4,8 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tlOpen: gsap.core.Timeline
-	let tlClose: gsap.core.Timeline
+	let tlOpen: gsap.core.timeline
+	let tlClose: gsap.core.timeline
 	let button: GSAPTweenTarget
 	let closeButton: GSAPTweenTarget
 	let title: GSAPTweenTarget

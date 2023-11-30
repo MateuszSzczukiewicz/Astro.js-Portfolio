@@ -2,7 +2,7 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl: gsap.core.Timeline
+	let tl: gsap.core.timeline
 	let bg: GSAPTweenTarget
 	let image: GSAPTweenTarget
 	let title: GSAPTweenTarget
