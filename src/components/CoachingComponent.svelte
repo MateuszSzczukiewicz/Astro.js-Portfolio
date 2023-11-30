@@ -1,9 +1,9 @@
 <script lang="ts">
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
-	import CoachingSVG from '@components/CoachingSVG.svelte'
+	import CoachingSVG from '../components/CoachingSVG.svelte'
 
-	let tl: gsap.core.Timeline
+	let tl: gsap.core.timeline
 	let bg: GSAPTweenTarget
 	let header: GSAPTweenTarget
 	let img: GSAPTweenTarget

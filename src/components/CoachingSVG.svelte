@@ -2,7 +2,7 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl: gsap.core.Timeline
+	let tl: gsap.core.timeline
 	let firstSVG: GSAPTweenTarget
 	let secondSVG: GSAPTweenTarget
 	let thirdSVG: GSAPTweenTarget

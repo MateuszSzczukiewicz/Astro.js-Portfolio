@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getCollection } from 'astro:content'
 	import { onMount } from 'svelte'
-	import FormattedDate from '@components/FormattedDate.svelte'
+	import FormattedDate from '../components/FormattedDate.svelte'
 
 	interface Post {
 		slug: string

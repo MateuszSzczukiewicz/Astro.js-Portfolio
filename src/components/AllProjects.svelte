@@ -1,10 +1,10 @@
 <script lang="ts">
-	import FirstProjectSVG from '@components/FirstProjectSVG.svelte'
-	import SecondProject from '@components/SecondProjectSVG.svelte'
+	import FirstProjectSVG from '../components/FirstProjectSVG.svelte'
+	import SecondProject from '../components/SecondProjectSVG.svelte'
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl: gsap.core.Timeline
+	let tl: gsap.core.timeline
 	let bg: GSAPTweenTarget
 	let header: GSAPTweenTarget
 	let image: GSAPTweenTarget
