@@ -2,9 +2,9 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 	import CoachingSVG from '../components/CoachingSVG.svelte'
-	import CoachingImg from '../assets/coaching.webp'
+	import CoachingImg from '../../public/images/coaching.webp'
 
-	let tl: gsap.core.timeline
+	let tl: gsap.core.Timeline
 	let bg: GSAPTweenTarget
 	let header: GSAPTweenTarget
 	let img: GSAPTweenTarget
