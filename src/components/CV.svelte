@@ -4,8 +4,7 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tlOpen: gsap.core.timeline
-	let tlClose: gsap.core.timeline
+	let tl: gsap.core.timeline
 	let button: GSAPTweenTarget
 	let closeButton: GSAPTweenTarget
 	let title: GSAPTweenTarget
@@ -14,35 +13,30 @@
 	let cvButton: GSAPTweenTarget
 	let span: GSAPTweenTarget
 
-	const playOpen = () => tlOpen?.play()
-
-	const playClose = () => tlOpen?.reverse()
+	const playOpen = () => tl.play()
+	const playClose = () => tl.reverse()
 
 	onMount(() => {
-		tlOpen = gsap.timeline({ paused: true })
-		tlClose = gsap.timeline({ paused: true })
+		tl = gsap.timeline({ paused: true })
 
-		if (tlOpen) {
-			tlOpen
-				.to(title, { opacity: '0', y: '-=50px', duration: 0.2 })
-				.to(cvButton, { opacity: '0', y: '-=50px', duration: 0.2 })
-				.to(
-					span,
-					{
-						scale: 25,
-						duration: 1
-					},
-					'+=0.1'
-				)
-				.set(wrapper, { backgroundColor: 'black' })
-				.to(button, { opacity: '0', duration: 0.1 })
-				.set(title, { display: 'none' })
-				.set(cvButton, { display: 'none' })
-				.set(button, { display: 'none' })
-				.set(closeButton, { display: 'block' })
-				.set(image, { display: 'block' })
-				.fromTo([image, closeButton], { opacity: '0', y: '+=50px' }, { opacity: '1', y: '0' })
-		}
+		tl.to(title, { opacity: '0', y: '-=50px', duration: 0.2 })
+			.to(cvButton, { opacity: '0', y: '-=50px', duration: 0.2 })
+			.to(
+				span,
+				{
+					scale: 25,
+					duration: 1
+				},
+				'+=0.1'
+			)
+			.set(wrapper, { backgroundColor: 'black' })
+			.to(button, { opacity: '0', duration: 0.1 })
+			.set(title, { display: 'none' })
+			.set(cvButton, { display: 'none' })
+			.set(button, { display: 'none' })
+			.set(closeButton, { display: 'block' })
+			.set(image, { display: 'block' })
+			.fromTo([image, closeButton], { opacity: '0', y: '+=50px' }, { opacity: '1', y: '0' })
 	})
 
 	const downloadPDF = () => {

@@ -11,7 +11,7 @@
 	isVisible = screenWidth < 1280
 
 	let tl: gsap.core.timeline
-	let list: HTMLUListElement
+	let list: GSAPTweenTarget
 
 	onMount(() => {
 		tl = gsap.timeline()
@@ -27,7 +27,7 @@
 
 {#if open}
 	<nav bind:this={open}>
-		<ul bind:this={list} class="flex flex-col items-center">
+		<ul bind:this={list} class="mt-8 flex flex-col items-center">
 			<NavItem url="/" text="O mnie" />
 			<NavItem url="/projects" text="Projekty" />
 			<NavItem url="/coaching" text="Korepetycje" />
