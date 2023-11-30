@@ -12,6 +12,5 @@ export default defineConfig({
   adapter: vercel({
     imageService: true,
     devImageService: 'squoosh',
-    includeFiles: ['./cv.pdf'],
   }),
 });
