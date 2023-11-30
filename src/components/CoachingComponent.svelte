@@ -31,7 +31,7 @@
 			<img
 				bind:this={img}
 				class="my-10 hidden h-80 w-10/12 rounded-2xl object-cover shadow-2xl md:block xl:h-[30rem]"
-				src="../assets/coaching.webp"
+				src="/images/coaching.webp"
 				alt="Korepetycje"
 			/>
 			<p

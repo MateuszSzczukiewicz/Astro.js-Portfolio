@@ -4,7 +4,7 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
-	let tl: gsap.core.timeline
+	let tl: gsap.core.Timeline
 	let bg: GSAPTweenTarget
 	let header: GSAPTweenTarget
 	let image: GSAPTweenTarget
@@ -40,7 +40,7 @@
 			>
 				<img
 					class="mb-10 rounded-2xl object-cover transition hover:scale-105 xl:mb-0"
-					src="/images/yachting.png"
+					src="/images/yachting.webp"
 					alt="Screenshot L.A. Yachting"
 				/>
 			</a>
@@ -65,7 +65,7 @@
 			<a class="mx-auto my-10 mr-auto w-[50rem] xl:mx-0" href="https://bookfreak.vercel.app/">
 				<img
 					class="mb-10 rounded-2xl object-cover transition hover:scale-105 xl:mb-0"
-					src="/images/BookFreak.png"
+					src="/images/BookFreak.webp"
 					alt="Screenshot L.A. Yachting"
 				/>
 			</a>
