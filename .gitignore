@@ -7,9 +7,6 @@ node_modules/
 # Astro
 /.astro/
 
-# Svelte
-/public/
-
 # Tailwind CSS
 /dist/
 
