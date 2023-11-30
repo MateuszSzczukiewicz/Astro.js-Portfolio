@@ -51,7 +51,7 @@
 <article class="flex h-screen w-screen flex-col justify-around xl:flex-row">
 	<div bind:this={bg} class="absolute h-screen w-screen bg-zinc-200"></div>
 	<section class="z-10 ml-4 flex flex-col md:gap-4 xl:absolute xl:left-52 xl:top-60">
-		<h1 bind:this={title} class="text-6xl md:text-7xl xl:text-[130px] xl:text-zinc-800">
+		<h1 bind:this={title} class="text-5xl md:text-7xl xl:text-[130px] xl:text-zinc-800">
 			Mateusz <span class="xl:text-zinc-100">Szczukiewicz</span>
 		</h1>
 		<h2 bind:this={subtitle} class="text-2xl text-zinc-600 md:text-3xl xl:ml-12 xl:text-4xl">
@@ -86,7 +86,7 @@
 		</section>
 	</div>
 	<section
-		class="z-10 flex scale-90 items-center justify-between sm:scale-75 sm:justify-center md:scale-100 xl:mx-auto xl:my-32 xl:flex-col xl:justify-around 2xl:mx-10"
+		class="z-10 flex scale-75 items-center justify-center sm:scale-75 md:scale-100 xl:mx-auto xl:my-32 xl:flex-col xl:justify-around 2xl:mx-10"
 	>
 		<button bind:this={linkedIn}>
 			<svg
