@@ -40,7 +40,7 @@
 			>
 				<img
 					class="mb-10 rounded-2xl object-cover transition hover:scale-105 xl:mb-0"
-					src="/yachting.png"
+					src="/images/yachting.png"
 					alt="Screenshot L.A. Yachting"
 				/>
 			</a>
@@ -67,7 +67,7 @@
 			<a class="mx-auto my-10 mr-auto w-[50rem] xl:mx-0" href="https://bookfreak.vercel.app/">
 				<img
 					class="mb-10 rounded-2xl object-cover transition hover:scale-105 xl:mb-0"
-					src="/BookFreak.png"
+					src="/images/BookFreak.png"
 					alt="Screenshot L.A. Yachting"
 				/>
 			</a>
