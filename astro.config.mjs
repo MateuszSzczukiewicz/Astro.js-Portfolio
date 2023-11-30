@@ -9,5 +9,8 @@ export default defineConfig({
   site: 'https://mateusz-szczukiewicz.vercel.app',
   integrations: [svelte(), tailwind(), mdx(), sitemap()],
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    imageService: true,
+    devImageService: 'squoosh',
+  }),
 });

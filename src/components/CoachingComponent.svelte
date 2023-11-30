@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte'
 	import CoachingSVG from '../components/CoachingSVG.svelte'
 
-	let tl: gsap.core.timeline
+	let tl: gsap.core.Timeline
 	let bg: GSAPTweenTarget
 	let header: GSAPTweenTarget
 	let img: GSAPTweenTarget
@@ -31,7 +31,7 @@
 			<img
 				bind:this={img}
 				class="my-10 hidden h-80 w-10/12 rounded-2xl object-cover shadow-2xl md:block xl:h-[30rem]"
-				src="/images/coaching.webp"
+				src="../assets/coaching.webp"
 				alt="Korepetycje"
 			/>
 			<p
