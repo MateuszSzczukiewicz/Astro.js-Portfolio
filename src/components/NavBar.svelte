@@ -10,7 +10,7 @@
 	const screenWidth: number = window.innerWidth
 	isVisible = screenWidth < 1280
 
-	let tl: gsap.core.timeline
+	let tl: gsap.core.Timeline
 	let list: GSAPTweenTarget
 
 	onMount(() => {

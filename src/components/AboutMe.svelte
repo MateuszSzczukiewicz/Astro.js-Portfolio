@@ -5,7 +5,7 @@
 	export let id: string
 
 	let isOpen: boolean = false
-	let tl: gsap.core.timeline
+	let tl: gsap.core.Timeline
 	let title: GSAPTweenTarget
 	let span1: GSAPTweenTarget
 	let span2: GSAPTweenTarget
