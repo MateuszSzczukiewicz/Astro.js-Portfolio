@@ -1,46 +1,31 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import NavBar from '../components/NavBar.svelte'
-import Footer from '../components/Footer.svelte'
+import Layout from './Layout.astro'
 import FormattedDate from '../components/FormattedDate.svelte'
-import { ViewTransitions } from 'astro:transitions'
 
 type Props = CollectionEntry<'blog'>['data']
 
-const { title, description, pubDate, heroImage } = Astro.props
+const { title, pubDate, heroImage } = Astro.props
 ---
 
-<html lang="pl">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<ViewTransitions />
-	</head>
-	<body>
-		<main>
-			<NavBar client:only="svelte" />
-			<article class="mx-auto mb-20 flex w-80 flex-col sm:w-[30rem] md:w-[40rem] lg:w-[50rem]">
-				<div class="mx-auto mb-10 mt-20 xl:mt-32">
-					{
-						heroImage && (
-							<img class="rounded-2xl shadow-2xl" src={heroImage} alt="Miniaturka artykułu" />
-						)
-					}
+<Layout title={title}>
+	<main>
+		<article class="mx-auto mb-20 flex w-80 flex-col sm:w-[30rem] md:w-[40rem] lg:w-[50rem]">
+			<div class="mx-auto mb-10 mt-20 xl:mt-32">
+				{
+					heroImage && (
+						<img class="rounded-2xl shadow-2xl" src={heroImage} alt="Miniaturka artykułu" />
+					)
+				}
+			</div>
+			<div class="mb-10">
+				<div class="mb-10 text-xl">
+					<FormattedDate date={pubDate} />
 				</div>
-				<div class="mb-10">
-					<div class="mb-10 text-xl">
-						<FormattedDate date={pubDate} />
-					</div>
-					<h1 class="mb-10 text-center text-5xl font-bold leading-relaxed">{title}</h1>
-					<hr />
-				</div>
-				<slot />
-			</article>
-		</main>
-		<Footer client:visible />
-	</body>
-</html>
+				<h1 class="mb-10 text-center text-3xl font-bold leading-relaxed md:text-5xl">{title}</h1>
+				<hr />
+			</div>
+			<slot />
+		</article>
+	</main>
+</Layout>

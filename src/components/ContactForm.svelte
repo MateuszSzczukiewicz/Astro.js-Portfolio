@@ -20,8 +20,8 @@
 </script>
 
 <main class="h-full w-screen xl:h-screen">
-	<div bind:this={bg} class="absolute -z-10 h-screen w-screen bg-zinc-100"></div>
-	<section class="py-20">
+	<div bind:this={bg} class="absolute -z-10 h-full w-screen bg-zinc-100"></div>
+	<section class="pt-20">
 		<div class="mx-auto max-w-screen-md px-4 py-8 lg:py-16">
 			<div bind:this={header}>
 				<h2 class="mb-4 text-center text-4xl font-extrabold tracking-tight text-zinc-900">
