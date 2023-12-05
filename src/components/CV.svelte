@@ -40,12 +40,12 @@
 	})
 
 	const downloadPDF = () => {
-		const pdfUrl = '/cv.pdf'
+		const pdfUrl = '/CV-Mateusz-Szczukiewicz.pdf'
 
 		const link = document.createElement('a')
 		link.href = pdfUrl
 		link.target = '_blank'
-		link.download = 'cv.pdf'
+		link.download = 'CV-Mateusz-Szczukiewicz.pdf'
 
 		document.body.appendChild(link)
 		link.click()

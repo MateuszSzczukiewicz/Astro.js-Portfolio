@@ -38,7 +38,7 @@
 {/if}
 
 <nav class="fixed z-50 hidden h-20 w-full items-center bg-opacity-20 backdrop-blur-lg xl:flex">
-	<ul class="ml-32 mt-12 flex gap-10">
+	<ul class="ml-20 mt-12 flex gap-10">
 		<NavItem url="/" text="O mnie" />
 		<NavItem url="/projects" text="Projekty" />
 		<NavItem url="/coaching" text="Korepetycje" />
