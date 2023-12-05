@@ -1,12 +1,13 @@
 <footer class="flex flex-col items-center justify-center bg-zinc-200 p-8 text-white">
 	<a href="/" class="mb-4 text-2xl font-bold text-zinc-900">Mateusz Szczukiewicz</a>
 	<div class="mx-auto mb-4 flex items-center justify-center gap-6">
-		<a href="/blog" class="text-zinc-900">Blog</a>
 		<a href="/projects" class="text-zinc-900">Projekty</a>
+		<a href="/coaching" class="text-zinc-900">Korepetycje</a>
+		<a href="/blog" class="text-zinc-900">Blog</a>
 		<a href="/contact" class="text-zinc-900">Kontakt</a>
 	</div>
 	<div class="flex items-center justify-center space-x-4">
-		<a href="#" target="_blank">
+		<a href="https://www.linkedin.com/in/mateusz-szczukiewicz-776665286" target="_blank">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				x="0px"
@@ -20,7 +21,7 @@
 				></path>
 			</svg>
 		</a>
-		<a href="#" target="_blank">
+		<a href="https://github.com/MateuszSzczukiewicz" target="_blank">
 			<svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
 				><path
 					fill-rule="evenodd"
@@ -30,7 +31,7 @@
 				/></svg
 			>
 		</a>
-		<a href="#" target="_blank">
+		<a href="https://www.youtube.com/channel/UCCmh8U7vxeyG1VY485_j4Vw" target="_blank">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				x="0px"
@@ -44,7 +45,7 @@
 				></path>
 			</svg>
 		</a>
-		<a href="#" target="_blank">
+		<a href="https://medium.com/@mszczukiewicz" target="_blank">
 			<svg
 				width="35"
 				height="35"

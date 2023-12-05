@@ -19,7 +19,7 @@
 	})
 </script>
 
-<main class="h-full w-screen xl:h-screen">
+<main class="h-full w-screen bg-zinc-100 xl:h-screen xl:bg-transparent">
 	<div bind:this={bg} class="absolute -z-10 h-full w-screen bg-zinc-100"></div>
 	<section class="pt-20">
 		<div class="mx-auto max-w-screen-md px-4 py-8 lg:py-16">
@@ -28,9 +28,13 @@
 					Skontaktuj się ze mną
 				</h2>
 				<p class="mb-8 text-center font-light text-gray-500 sm:text-xl lg:mb-16">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias autem dicta est
-					voluptatum? Accusantium animi consequuntur eos est expedita in iusto nesciunt nisi nobis
-					perferendis possimus quis quos saepe, voluptatibus?
+					Telefon: <a class="font-normal underline underline-offset-4" href="tel:+48531932995"
+						>+48 531 932 995</a
+					> <br />
+					Adres email:
+					<a class="font-normal underline underline-offset-4" href="mailto:szcmat6277@gmail.com"
+						>szcmat6277@gmail.com</a
+					>
 				</p>
 			</div>
 			<form

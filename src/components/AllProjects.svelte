@@ -42,6 +42,8 @@
 					class="mb-10 rounded-2xl object-cover transition hover:scale-105 xl:mb-0"
 					src="/images/yachting.webp"
 					alt="Screenshot L.A. Yachting"
+					height="927"
+					width="1899"
 				/>
 			</a>
 			<FirstProjectSVG />
@@ -55,18 +57,21 @@
 		</p>
 	</article>
 </section>
-<section class="xl:h-screen xl:w-screen">
-	<div class="absolute -z-10 h-full w-full bg-zinc-100"></div>
+<section class="bg-zinc-100 xl:h-screen xl:w-screen xl:bg-transparent">
+	<div class="absolute -z-10 hidden h-full w-full bg-zinc-100 xl:block"></div>
 	<article class="mx-auto flex h-full w-10/12 flex-col py-20">
 		<h1 class="mb-10 text-center text-5xl xl:mb-0 xl:mr-40 xl:self-end xl:text-[100px]">
 			BookFreak
 		</h1>
 		<div class="items-center justify-center xl:flex xl:flex-row">
-			<a class="mx-auto my-10 mr-auto w-[50rem] xl:mx-0" href="https://bookfreak.vercel.app/">
+			<a class="mx-auto my-10 mr-auto w-[50rem] xl:mx-0" href="https://bookfreak.vercel.app">
 				<img
 					class="mb-10 rounded-2xl object-cover transition hover:scale-105 xl:mb-0"
 					src="/images/BookFreak.webp"
-					alt="Screenshot L.A. Yachting"
+					alt="Screenshot BookFreak"
+					height="927"
+					width="1915"
+					loading="lazy"
 				/>
 			</a>
 			<SecondProject />

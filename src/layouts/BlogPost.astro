@@ -14,7 +14,13 @@ const { title, pubDate, heroImage } = Astro.props
 			<div class="mx-auto mb-10 mt-20 xl:mt-32">
 				{
 					heroImage && (
-						<img class="rounded-2xl shadow-2xl" src={heroImage} alt="Miniaturka artykułu" />
+						<img
+							class="rounded-2xl shadow-2xl"
+							src={heroImage}
+							alt="Miniaturka artykułu"
+							height="448"
+							width="800"
+						/>
 					)
 				}
 			</div>

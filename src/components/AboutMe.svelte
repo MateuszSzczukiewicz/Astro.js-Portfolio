@@ -35,6 +35,8 @@
 			'start'
 		)
 	})
+
+	const text: string = `Nazywam się <strong>Mateusz Szczukiewicz</strong> i jestem aspirującym <strong>Frontend Developerem</strong>. Swoje pierwsze kroki w programowaniu postawiłem już w czasach szkolnych kodując proste programy w języku C++. Swoją przyszłość wiążę jednak z Web Developmentem, którym zafascynowałem się tworząc małe i nieskomplikowane aplikacje wykorzystujące HTML, CSS oraz JavaScript. Dziś jednak realizuję się w projektach wykorzystujących bibliotekę React oraz bazujące na niej Framework, takie jak Gatsby.js, w którym wykonałem swój pierwszy komercyjny projekt dla <strong><a href='https://la-yachting.com' target='_blank'>L.A. Yachting</a></strong>, oraz Next.js, którego dogłębne zrozumienie i umiejętne zastosowanie są w tej chwili dla mnie ekscytującym wyzwaniem. <br> Jestem osobą ambitną i pracowitą, czego dowodzi mój upór w dogłębnym poznawaniu świata web developmentu, którego inspiracją są dla mnie takie postaci, jak: Theo Browne, Josh W. Comeau, czy Kent C. Dodds. Nie zamykam się także na technologie backendowe, takie jak Express, czy NestJS, które wykorzystuję do tworzenia API dla swoich reactowych projektów. Problemów nie sprawia mi także nauka i wykorzystywanie baz danych, między innymi MongoDB oraz MySQL. W programowaniu lubię też wychodzić poza strefę komfortu, wykorzystując wcześniej nieznane mi technologie, o czym świadczy projekt mojej strony, który to wykonałem używając Astro, TailwindCSS oraz Svelte. <br>Swoją działalność programistyczną aktywnie rozszerzam także na sektor edukacyjny. Prowadzę bloga, którego rozpocząłem od przekazywania w prosty i przystępny dla każdego sposób tematyki reactowych Hooków, a także kanału na YouTube <strong><a href='https://www.youtube.com/channel/UCCmh8U7vxeyG1VY485_j4Vw' target='_blank'>Code must be Elegant</a></strong>, na którym mierzę się z frameworkiem Astro. Prowadzę ponadto korepetycje z podstaw frontendu, ucząc na podstawie własnej wiedzy, jak i fachowej literatury, HTML, CSS oraz JavaScript.`
 </script>
 
 {#if isVisible}
@@ -43,7 +45,23 @@
 		class="flex h-screen w-screen items-center justify-start overflow-hidden bg-zinc-100"
 	>
 		<div bind:this={title} class="flex h-full w-[50vw] items-center justify-center">
-			<span class="p-10 text-center text-[105px] font-bold">Dowiedz się więcej</span>
+			<span class="p-10 text-center text-[105px] font-bold"
+				>Dowiedz się więcej o mnie <br />
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="ml-auto mr-36 h-36 w-36"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+					/>
+				</svg>
+			</span>
 		</div>
 		<button
 			on:click={handleClick}
@@ -51,35 +69,24 @@
 		>
 			<img
 				bind:this={img}
-				src="https://media.macphun.com/img/uploads/customer/how-to/608/15542038745ca344e267fb80.28757312.jpg?q=85&w=1340"
+				src="/images/MyImage2.webp"
 				class="absolute h-screen w-[50vw] object-cover"
 				alt="Moje zdjęcie"
+				height="2996"
+				width="2428"
+				loading="lazy"
 			/>
-			<span bind:this={span1} class="z-10 text-[105px] font-bold text-white">O mnie</span>
 		</button>
 		<button
 			on:click={handleClick}
 			class="absolute -right-1/2 flex h-full w-[50vw] flex-col items-center justify-center text-center"
 		>
-			<span bind:this={span2} class="max-w-prose text-xl">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis consectetur culpa
-				cumque cupiditate dolorum ea fuga fugiat harum iusto magni natus nobis nostrum odit, officia
-				porro quam sunt vitae?
-			</span>
+			<span bind:this={span2} class="max-w-prose text-xl">{@html text}</span>
 			<span bind:this={span3} class="mt-4 text-xl">[kliknij, by zamknąć]</span>
 		</button>
 	</article>
 {:else}
 	<article {id} class="flex h-full w-screen items-center justify-start overflow-hidden bg-zinc-100">
-		<p class="m-5 max-w-prose bg-zinc-200 p-4 text-justify text-lg font-semibold">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis consectetur culpa
-			cumque cupiditate dolorum ea fuga fugiat harum iusto magni natus nobis nostrum odit, officia
-			porro quam sunt vitae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi
-			architecto consequuntur corporis culpa cupiditate error explicabo in, iusto libero magni
-			maiores non numquam officiis quam suscipit tempora tempore voluptas! Lorem ipsum dolor sit
-			amet, consectetur adipisicing elit. Consequuntur doloribus eligendi impedit laborum nihil
-			porro qui recusandae, sunt tempora veniam veritatis, vero voluptatem? Consectetur
-			consequuntur.
-		</p>
+		<p class="m-5 max-w-prose bg-zinc-200 p-4 text-lg font-semibold">{@html text}</p>
 	</article>
 {/if}

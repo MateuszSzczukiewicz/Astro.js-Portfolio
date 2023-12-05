@@ -33,6 +33,8 @@
 				class="my-10 hidden h-80 w-10/12 rounded-2xl object-cover shadow-2xl md:block xl:h-[30rem]"
 				src="/images/coaching.webp"
 				alt="Korepetycje"
+				height="750"
+				width="1123"
 			/>
 			<p
 				bind:this={p}
