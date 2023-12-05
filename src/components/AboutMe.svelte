@@ -71,7 +71,7 @@
 				bind:this={img}
 				src="/images/MyImage2.webp"
 				class="absolute h-screen w-[50vw] object-cover"
-				alt="Moje zdjęcie"
+				alt="Moje zdjęcie 2"
 				height="2996"
 				width="2428"
 				loading="lazy"
