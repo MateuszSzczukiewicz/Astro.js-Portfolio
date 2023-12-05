@@ -74,6 +74,7 @@
 				class="z-0 h-56 w-auto object-cover shadow-2xl md:h-96 xl:h-screen xl:w-[60rem]"
 				height="2568"
 				width="3464"
+				decoding="async"
 			/>
 		</section>
 		<section
@@ -99,6 +100,7 @@
 		<a
 			href="https://www.linkedin.com/in/mateusz-szczukiewicz-776665286/"
 			target="_blank"
+			aria-label="linkedIn"
 			bind:this={linkedIn}
 		>
 			<svg
@@ -115,7 +117,12 @@
 				></path>
 			</svg>
 		</a>
-		<a href="https://github.com/MateuszSzczukiewicz" target="_blank" bind:this={GitHub}>
+		<a
+			href="https://github.com/MateuszSzczukiewicz"
+			target="_blank"
+			aria-label="GitHub"
+			bind:this={GitHub}
+		>
 			<svg
 				width="80"
 				height="80"
@@ -133,6 +140,7 @@
 		<a
 			href="https://www.youtube.com/channel/UCCmh8U7vxeyG1VY485_j4Vw"
 			target="_blank"
+			aria-label="YouTube"
 			bind:this={YouTube}
 		>
 			<svg
@@ -149,7 +157,12 @@
 				></path>
 			</svg>
 		</a>
-		<a href="https://medium.com/@mszczukiewicz" target="_blank" bind:this={Medium}>
+		<a
+			href="https://medium.com/@mszczukiewicz"
+			target="_blank"
+			aria-label="Medium"
+			bind:this={Medium}
+		>
 			<svg
 				width="100"
 				height="100"

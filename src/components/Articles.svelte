@@ -39,6 +39,7 @@
 							src={post.data.heroImage}
 							class="h-56 w-full rounded-2xl object-cover shadow-2xl hover:shadow-zinc-400 xl:h-72"
 							alt="Miniaturka artykułu"
+							decoding="async"
 						/>
 						<h4 class="mt-4 text-2xl font-semibold xl:text-4xl">{post.data.title}</h4>
 						<p class="mt-2 text-lg font-semibold text-zinc-500">
