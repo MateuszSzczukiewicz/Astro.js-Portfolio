@@ -70,7 +70,7 @@
 		<section bind:this={image} class="flex self-end sm:self-start md:self-end xl:ml-[44rem]">
 			<img
 				src="/images/MyImage1.webp"
-				alt="Moje zdjęcie"
+				alt="Moje zdjęcie 1"
 				class="z-0 h-56 w-auto object-cover shadow-2xl md:h-96 xl:h-screen xl:w-[60rem]"
 				height="2568"
 				width="3464"
