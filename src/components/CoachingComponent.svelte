@@ -35,6 +35,7 @@
 				alt="Korepetycje"
 				height="750"
 				width="1123"
+				decoding="async"
 			/>
 			<p
 				bind:this={p}

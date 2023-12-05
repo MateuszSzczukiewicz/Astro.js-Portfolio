@@ -7,7 +7,11 @@
 		<a href="/contact" class="text-zinc-900">Kontakt</a>
 	</div>
 	<div class="flex items-center justify-center space-x-4">
-		<a href="https://www.linkedin.com/in/mateusz-szczukiewicz-776665286" target="_blank">
+		<a
+			href="https://www.linkedin.com/in/mateusz-szczukiewicz-776665286"
+			target="_blank"
+			aria-label="LinkedIn"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				x="0px"
@@ -21,7 +25,7 @@
 				></path>
 			</svg>
 		</a>
-		<a href="https://github.com/MateuszSzczukiewicz" target="_blank">
+		<a href="https://github.com/MateuszSzczukiewicz" target="_blank" aria-label="GitHub">
 			<svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
 				><path
 					fill-rule="evenodd"
@@ -31,7 +35,11 @@
 				/></svg
 			>
 		</a>
-		<a href="https://www.youtube.com/channel/UCCmh8U7vxeyG1VY485_j4Vw" target="_blank">
+		<a
+			href="https://www.youtube.com/channel/UCCmh8U7vxeyG1VY485_j4Vw"
+			target="_blank"
+			aria-label="YouTube"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				x="0px"
@@ -45,7 +53,7 @@
 				></path>
 			</svg>
 		</a>
-		<a href="https://medium.com/@mszczukiewicz" target="_blank">
+		<a href="https://medium.com/@mszczukiewicz" target="_blank" aria-label="Medium">
 			<svg
 				width="35"
 				height="35"

@@ -75,6 +75,7 @@
 				height="2996"
 				width="2428"
 				loading="lazy"
+				decoding="async"
 			/>
 		</button>
 		<button

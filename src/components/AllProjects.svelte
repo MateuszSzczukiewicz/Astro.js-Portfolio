@@ -44,6 +44,7 @@
 					alt="Screenshot L.A. Yachting"
 					height="927"
 					width="1899"
+					decoding="async"
 				/>
 			</a>
 			<FirstProjectSVG />
@@ -72,6 +73,7 @@
 					height="927"
 					width="1915"
 					loading="lazy"
+					decoding="async"
 				/>
 			</a>
 			<SecondProject />
