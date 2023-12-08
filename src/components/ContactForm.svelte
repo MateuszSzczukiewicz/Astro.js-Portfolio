@@ -27,7 +27,7 @@
 				<h2 class="mb-4 text-center text-4xl font-extrabold tracking-tight text-zinc-900">
 					Skontaktuj się ze mną
 				</h2>
-				<p class="mb-8 text-center font-light text-gray-500 sm:text-xl lg:mb-16">
+				<p class="mb-8 text-center font-light text-zinc-900 sm:text-xl lg:mb-16">
 					Telefon: <a class="font-normal underline underline-offset-4" href="tel:+48531932995"
 						>+48 531 932 995</a
 					> <br />

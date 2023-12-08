@@ -4,6 +4,8 @@
 	import gsap from 'gsap'
 	import { onMount } from 'svelte'
 
+	const screenWidth = window.innerWidth
+
 	let tl: gsap.core.Timeline
 	let button: GSAPTweenTarget
 	let closeButton: GSAPTweenTarget
@@ -40,12 +42,12 @@
 	})
 
 	const downloadPDF = () => {
-		const pdfUrl = '/CV-Mateusz-Szczukiewicz.pdf'
+		const pdfUrl = '/CV Mateusz Szczukiewicz.pdf'
 
 		const link = document.createElement('a')
 		link.href = pdfUrl
 		link.target = '_blank'
-		link.download = 'CV-Mateusz-Szczukiewicz.pdf'
+		link.download = 'CV Mateusz Szczukiewicz.pdf'
 
 		document.body.appendChild(link)
 		link.click()
@@ -79,12 +81,25 @@
 	>
 		Pobierz CV
 	</button>
-	<img
-		bind:this={image}
-		class="hidden h-auto w-[33rem] rounded shadow-2xl xl:mt-6"
-		src="https://a.allegroimg.com/original/113480/f6893bdd4293880393369e070e57/Edytowalny-Szablon-CV-w-MS-Word-1-22-CV"
-		alt="Moje CV"
-	/>
+	{#if screenWidth > 1024}
+		<img
+			bind:this={image}
+			class="hidden h-auto w-[55%] rounded shadow-2xl xl:mt-6"
+			src="/images/CVImage.webp"
+			alt="Moje CV"
+			loading="lazy"
+			decoding="async"
+		/>
+	{:else}
+		<img
+			bind:this={image}
+			class="hidden h-auto w-11/12 rounded shadow-2xl xl:mt-6"
+			src="/images/CVImage2.webp"
+			alt="Moje CV"
+			loading="lazy"
+			decoding="async"
+		/>
+	{/if}
 	<button
 		bind:this={closeButton}
 		on:click={playClose}

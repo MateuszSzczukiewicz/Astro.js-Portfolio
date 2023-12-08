@@ -57,12 +57,14 @@
 		>
 			Mateusz <span class="xl:text-zinc-600">Szczukiewicz</span>
 		</h1>
-		<h2
+		<a
+			href="https://www.youtube.com/channel/UCCmh8U7vxeyG1VY485_j4Vw"
+			target="_blank"
 			bind:this={subtitle}
-			class="font-mono text-2xl text-zinc-600 md:text-3xl xl:ml-12 xl:text-4xl"
+			class="font-[VT323] text-7xl text-zinc-800 md:text-3xl xl:ml-12 xl:text-5xl"
 		>
 			CODE MUST BE ELEGANT
-		</h2>
+		</a>
 	</section>
 	<div
 		class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-around md:flex-col md:items-end"
