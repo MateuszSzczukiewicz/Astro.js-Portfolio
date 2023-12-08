@@ -20,10 +20,12 @@
 			tl.fromTo(p, { x: '20%', opacity: 0 }, { x: 0, opacity: '100%', duration: 0.5 })
 		}
 	})
+
+	const text: string = `Chciałbyś/chciałabyś podszkolić się z zakresu podstaw frontendu? Nie czujesz się najlepiej z takimi technologiami, jak HTML, CSS, JavaScript, bądź React? Jeśli <strong>TAK</strong> to <a class='underline underline-offset-4 font-semibold' href='/contact'>skontaktuj się ze mną</a>! Udzielam korepetycji od poniedziałku od piątku w godzinach popołudniowych, jednak godzinę spotkań ustalimy na pierwszych zapoznawczych zajęciach, które są zupełnie darmowe. Podczas zajęć będziemy korzystać z Visual Studio Code z wtyczką, która pozwala na wspólne pisanie kodu. Zaczniemy tworzyć proste strony, rozwiązywać ciekawe zadania i wspólnie kształtować praktyczne umiejętności w pisaniu eleganckiego kodu. Do nauki potrzebny Ci będzie tylko komputer z dostępem do Internetu i godzina czasu tygodniowo. Podczas zajęć nie zabraknie rozwiązywania ciekawych problemów i tworzenia aplikacji, które będziesz mógł dalej rozwijać samodzielnie, bądź z moją pomocą. Gwarantuję przyjemną atmosferę i pomoc w rozpoczęciu swojej przygody z programowaniem.`
 </script>
 
-<main class="h-full w-screen xl:h-screen">
-	<div bind:this={bg} class="absolute -z-10 h-full w-full"></div>
+<main class="h-full w-screen bg-zinc-100 xl:h-screen xl:bg-transparent">
+	<div bind:this={bg} class="absolute -z-10 h-full w-screen bg-zinc-100"></div>
 	<section class="flex flex-col items-center justify-center pt-20">
 		<h2 bind:this={header} class="my-10 text-center text-5xl font-semibold">Ucz się ze mną!</h2>
 		<CoachingSVG />
@@ -41,14 +43,7 @@
 				bind:this={p}
 				class="m-5 h-fit max-w-prose bg-zinc-200 p-4 text-justify text-lg font-semibold"
 			>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut blanditiis consectetur culpa
-				cumque cupiditate dolorum ea fuga fugiat harum iusto magni natus nobis nostrum odit, officia
-				porro quam sunt vitae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
-				animi architecto consequuntur corporis culpa cupiditate error explicabo in, iusto libero
-				magni maiores non numquam officiis quam suscipit tempora tempore voluptas! Lorem ipsum dolor
-				sit amet, consectetur adipisicing elit. Consequuntur doloribus eligendi impedit laborum
-				nihil porro qui recusandae, sunt tempora veniam veritatis, vero voluptatem? Consectetur
-				consequuntur.
+				{@html text}
 			</p>
 		</article>
 	</section>
