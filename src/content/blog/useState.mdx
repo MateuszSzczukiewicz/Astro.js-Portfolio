@@ -1,11 +1,9 @@
 ---
 title: 'Komponenty klasowe? Potrzymaj mi stan! - Czyli, czym właściwie jest ten „useState”?'
 description: 'Czym jest i jak używać hooka useState'
-pubDate: 'Nov 20 2023'
+pubDate: 'Nov 28 2023'
 heroImage: '/images/React.webp'
 ---
-
-## Wprowadzenie do React Hooks
 
 W dawnych czasach, w Reakcie komponenty dzieliło się na klasowe — używające programowania zorientowanego obiektowo oraz funkcyjne — których składnię z pewnością już znacie, skoro chcecie zaznajomić się z tematyką hooków. Do prostych zadań, takich jak np. wyświetlenie JSX-a, używaliśmy komponentów funkcyjnych. Jednakże, aby aplikacja zyskała moc i mogła robić rzeczy znacznie bardziej zaawansowane, na przykład przetrzymywanie stanu lokalnego albo korzystanie z cyklu życia komponentu, ludzkość korzystała z broni większego kalibru — komponentów klasowych.
 
@@ -14,7 +12,7 @@ W dawnych czasach, w Reakcie komponenty dzieliło się na klasowe — używając
 Rzemieślnik posługujący się dłutem, jakim był kod, początkowo musiał ów komponent klasowy zainicjować, wykorzystując znane nam słowo „class”, rozszerzając je o Component z biblioteki React. Następnie po zainicjalizowaniu konstruktora, przypisywał dla swojego stanu wartość początkową:
 
 ```jsx
-class CounterClass extends React.Component {
+class CounterClass extends Component {
   constructor(props) {
     super(props);
     this.state = { count: 0 };
