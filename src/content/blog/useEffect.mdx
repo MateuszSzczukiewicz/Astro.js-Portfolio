@@ -1,0 +1,201 @@
+---
+title: 'Życie i czasy pewnego komponentu - Czyli, o efektach „useEffect”'
+description: 'Czym jest i jak używać hooka useEffect'
+pubDate: 'Dec 09 2023'
+heroImage: '/images/React.webp'
+---
+
+Ostatnio powiedzieliśmy sobie trochę o pierwszym z hooków, mianowicie o niesamowicie popularnym useState. Dziś zagłębimy się w temat drugiego z nich, który również zyskał w świecie reactowym wielu entuzjastów. Mowa tu o useEffect doskonale współgrającym z poprzednim hookiem, z którym to całkowicie wyparł on z Reacta komponenty klasowe. I tak jak useState przejął ustawianie stanu lokalnego, tak useEffect wyparł konieczność korzystania z klas do operowania cyklem życia komponentu.
+
+A skoro o życiu komponentu mowa, to właśnie tym segmentem useEffect zajmuje się z zawodowo. Jest on dziennikarzem, który śledzi losy komponentu od narodzin, aż po samą śmierć. Tym samym zwalnia nas z samodzielnego martwienia się o całą biografię komponentu. Jednak zanim przejdziemy do omawiania naszego dzisiejszego bohatera, spójrzmy na życie i czasy komponentu.
+
+## Komponenty klasowe
+
+Każdy komponent rodzi się, zmienia i umiera. Podczas tych procesów mamy do czynienia jednak z trzema fazami, które towarzyszą komponentowi podczas rozwoju. Gdy komponent rozpoczyna swoje życie (mounting) najpierw musi przejść przez fazę renderowania. Wszystko zaczyna się w konstruktorze, gdyż mowa tu o komponencie klasowym. W nim dochodzi do nadania mu początkowego stanu, znanym nam setState, oraz odebraniu propsów z innego komponentu. W tym celu musi on wywołać konstruktor znajdujący się w odbieranym komponencie poprzez super(props). Robi to pierwszą metodą, jaką jest getDerivedStateFromProps, o której będzie za chwilę. Przypisuje on też własne metody, np. handleClick. Następnie, gdy konstruktor będzie już gotowy, dochodzi do renderu komponentu i natychmiastowym przeskoczeniu do trzeciej fazy, jaką jest faza commitu. Wtedy to metoda componentDidMount stawia naszego bohatera w drzewie DOM.
+
+```jsx
+class MyComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      myState: this.props.initialValue,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    // Obsługa kliknięcia
+  }
+
+  componentDidMount() {
+    // Wykonywane po zamontowaniu komponentu w drzewie DOM
+  }
+```
+
+Uff, to było szybkie, bo takie właśnie jest montowanie komponentu. Ciekawe rzeczy dzieją się jednak podczas zmian, które następują w jego życiu. Zobaczymy tam dokładnie wszystkie trzy fazy rozwoju. Aktualizacja zaczyna się, gdy stanie się jedna z dwóch rzeczy. Zmieni się wartość stanu lokalnego lub zmienią się wartości propsów. Właśnie podczas tej drugiej zagłębimy się w getDerivedStateFromProps. Gdy komponent otrzymuje nowe propsy, ta metoda pozwala mu na szybką aktualizację, zanim pokaże się on światu (dzieje się to także przy pierwszym pojawieniu). Przyjmuje ona dwa argumenty. Pierwszy z nich oznacza nową, a drugi starą wartość. Teraz porównuje ona te dwa stany i jeśli są one różne, przekazuje nową wartość dalej.
+
+```jsx
+class MyComponent extends Component {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.value !== prevState.value) {
+      return { value: nextProps.value };
+    }
+    return null;
+  }
+
+  state = {
+    value: this.props.value,
+  };
+
+  render() {
+    return <div>{this.state.value}</div>;
+  }
+}
+```
+
+Teraz gdy nowy stan propsa, bądź stanu lokalnego został odnotowany, komponent może spokojnie zastanowić się nad tym czy się do niego przystosować. Robi to używając kolejnej metody w fazie renderowania, czyli shouldComponentUpdate. Pragnie on tym uniknąć sytuacji, w której ta zmiana będzie niepotrzebnie go fatygować, podczas gdy ostatecznie nic ona nie zmieni. W argumencie ponownie bierze on nową wartość propsa i lokalny stan. Gdy są one rozbieżne trzeba coś z tym zrobić, więc przekazuje on je do fazy będącej przejściem między renderowaniem a commitem. Ale nie zawsze musi to robić, często po prostu zakłada automatycznie, że zmiana będzie istotna.
+
+```jsx
+class MyComponent extends Component {
+  state = {
+    count: 0,
+  };
+
+  handleClick = () => {
+    this.setState(prevState => ({
+      count: prevState.count + 1,
+    }));
+  };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.count !== this.state.count;
+  }
+```
+
+Jednak tuż przed tym, jak pojawi się on w DOMie, komponent robi mu jeszcze zdjęcie, by sprawdzić czy nie będzie on potrzebował jakichś dodatkowych informacji przed aktualizacją. Przyjmuje on informacje o aktualnych wartościach propsa i stanu lokalnego, po czym przechwytuje niezbędne informacje, na przykład o położeniu scrolla, rozmiarze elementów czy innych danych związanych z drzewem DOM.
+
+```jsx
+getSnapshotBeforeUpdate(prevProps, prevState) {
+  // Przechwyć informacje o DOM przed aktualizacją
+  const { scrollTop, scrollHeight } = this.scrollContainer;
+  return { scrollTop, scrollHeight };
+```
+
+I dopiero na końcu dochodzi do końcowej metody componentDidUpdate, w której przy pomocy dwóch argumentów identycznych jak w poprzedniej metodzie oraz trzeciego, oznaczającego informacje zwrócone przez getSnapshotBeforeUpdate, komponent renderuje się ponownie, tym razem z nowymi wartościami.
+
+```jsx
+componentDidUpdate(prevProps, prevState, snapshot) {
+  // Użyj przechwyconych informacji do aktualizacji komponentu
+  if (snapshot.scrollTop !== this.scrollContainer.scrollTop) {
+    // Wykonaj operacje na podstawie zmiany scrolla
+  }
+}
+```
+
+Takich zmian w życiu komponentu może być wiele, jednak nadchodzi moment, gdy komponent musi już zniknąć, niekiedy tylko na chwilę. To jest ostatni etap, czyli odmontowanie komponentu. Dzieje się ono tuż po tym, jak wywoływana zostanie metoda componentWillUnmount. W jej trakcie może dojść do czyszczenia niepotrzebnych rzeczy jak np. anulowanie interwału czasowego.
+
+```jsx
+componentDidMount() {
+    // Ustawienie interwału czasowego po zamontowaniu
+    this.timerID = setInterval(() => {
+      console.log('Tick');
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    // Anulowanie interwału czasowego przed odmontowaniem
+    clearInterval(this.timerID);
+  }
+```
+
+I tak wygląda cała biografia komponentu. Celowo pominąłem metody, takie jak: componentWillMount, componentWillReceiveProps, componentWillUpdate, gdyż zostały one już usunięte przez twórców Reacta. Jednak nie kończymy na tym naszej dzisiejszej podróży. Przedstawienie cyklu życia komponentu miało na celu pokazanie, jak skomplikowanym procesem jest zarządzanie komponentami i jak bardzo ułatwia nam to bohater tego artykułu, czyli useEffect. Hook ten skupia się jedynie na ostatniej fazie, czyli commitowaniu. Dochodzi tam do najważniejszych metod: componentDidMount, componentDidUpdate oraz componentWillUnmount.
+
+***
+
+Zacznijmy jednak od stworzenia funkcji strzałkowej. Następnie ustawmy sobie useState, który będzie nam przechowywał aktualną wartość count na podstawie początkowej wartości 0:
+
+```jsx
+const DynamicCounterComponent = () => {
+  const [count, setCount] = useState(0);
+	}
+```
+
+Tę część już doskonale znamy. Teraz więc przejdźmy do zamontowania naszego komponentu, który będzie aktualizował nasz stan co jedną sekundę:
+
+```jsx
+	useEffect(() => {
+			// Funkcja aktualizująca stan count
+			setInterval(() => {
+				setCount(count + 1);
+			},  1000);
+	});
+
+		return (
+			<div>
+				<p>Count: {count}</p>
+			</div>
+		);
+	};
+}
+```
+
+W tym momencie w paragrafie zobaczymy, iż Count jest równy 1, mimo ciągłej aktywacji interwału co sekundę. Jest to spowodowane brakiem drugiej metody, jaką jest componentWillUpdate. W useEffect dodajemy ją do tablicy zależności. Jest to bardzo istotna kwestia, gdyż hook ten renderuje się ponownie tylko wtedy, gdy wartość będąca w tablicy ulegnie zmianie. W przypadku braku wartości wyrenderuje się tylko raz. My ustawimy tam nasłuchiwanie na zmianę count.
+
+```jsx
+  useEffect(() => {
+    // Funkcja aktualizująca stan count
+    setInterval(() => {
+      setCount(count + 1);
+    },  1000);
+}, [count]);
+```
+
+I tu pojawia się nieoczekiwany błąd. Count ulega zmianie w każdej sekundzie, jednak cyfry zaczynają się zachowywać naprawdę dziwnie. Jest to spowodowane tym, iż co sekundę powstaje nowy setInterval, który dodaje jeden do stanu count. Podobny błąd omawialiśmy w poprzednim artykule. By to naprawić, użyjemy ostatniej metody cyklu życia komponentu, czyli componentWillUnmount, by wyczyścić interwał tuż przed odmontowaniem komponentu. Robimy to za pomocą funkcji czyszczącej return () => {}, w której dochodzi do clearInterval. Jednak przed tym musimy ustawić zmienną odwołującą się do tego interwału.
+
+```jsx
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount(count + 1);
+    },  1000);
+    return () => {
+      clearInterval(intervalId);
+    };
+}, [count]);
+```
+
+I tak wygląda pełne opisanie cyklu życia komponentu przez useEffect. W rzeczywistości nie musieliśmy używać funkcji czyszczącej. Jak pewnie pamiętacie z poprzedniego artykułu, błąd ten można by rozwiązać zamienieniem (count + 1) na (prevCount => prevCount + 1).
+
+Teraz wróćmy na chwilę do opisanych przeze mnie metod cyklu życia i zobaczmy, jak wyglądałby ten komponent, gdybyśmy nie używali hooków.
+
+```jsx
+class DynamicCounterComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState(prevState => ({
+        count: prevState.count + 1,
+      }));
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Count: {this.state.count}</p>
+      </div>
+    );
+  }
+}
+```
+
+Teraz już pewnie widzicie jak useEffect potrafi ułatwić życie. Gdy mamy do czynienia z bardziej złożonymi komponentami, zwykłe metody cyklu życia potrafią stać się niezwykle upierdliwe. Głównie przez potrzebę powielania tego samego kodu. Dlatego dziś metody te odeszły w zapomnienie, razem z komponentami klasowymi w React, gdyż kluczowe zadania tych komponentów, czyli tworzenie stanu lokalnego oraz cyklu życia, zostały przejęte przez useState i useEffect w komponentach funkcyjnych. Na koniec jednak chciałbym powiedzieć kilka gorzkich słów o naszym dzisiejszym bohaterze. Podobnie do useState bywa on nadużywany. W bardzo wielu przypadkach zamiast niego lepszym pomysłem byłoby używanie useCallback, useMemo, useReducer, useContext, czy własnych hooków. Widać to głównie przy używaniu useEffect z pustą tablicą zależności. Dlatego nie należy kończyć nauki hooków na tych dwóch najpopularniejszych. W następnych artykułach prześledzimy sobie ich alternatywy, które w mojej ocenie potrafią być znacznie bardziej wydajne i eleganckie.
