@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte'
 	import FormattedDate from '../components/FormattedDate.svelte'
 
-	interface Post {
+	type Post = {
 		slug: string
 		data: {
 			pubDate: Date
@@ -30,8 +30,8 @@
 </script>
 
 <main>
-	<section class="h-screen min-h-screen w-screen py-20 lg:pt-40">
-		<ul class="mx-auto grid w-80 grid-cols-1 gap-16 lg:w-[50rem] lg:grid-cols-2 xl:w-[70rem]">
+	<section class="h-full min-h-screen w-screen py-20 lg:pt-40">
+		<ul class="mx-auto grid w-80 grid-cols-1 gap-20 lg:w-[50rem] lg:grid-cols-2 xl:w-[70rem]">
 			{#each posts as post (post.slug)}
 				<li class="flex flex-col transition hover:scale-110">
 					<a href={`/blog/${post.slug}/`}>

@@ -48,7 +48,7 @@
 	})
 </script>
 
-<article class="flex h-screen w-screen flex-col justify-around xl:flex-row">
+<article class="flex h-screen w-screen flex-col justify-center gap-8 xl:flex-row">
 	<div bind:this={bg} class="absolute h-screen w-screen bg-zinc-200"></div>
 	<section class="z-10 ml-4 flex flex-col md:gap-4 xl:absolute xl:left-12 xl:top-40 xl:w-[30rem]">
 		<h1
@@ -61,7 +61,7 @@
 			href="https://www.youtube.com/channel/UCCmh8U7vxeyG1VY485_j4Vw"
 			target="_blank"
 			bind:this={subtitle}
-			class="font-[VT323] text-7xl text-zinc-800 md:text-3xl xl:ml-12 xl:text-5xl"
+			class="font-[VT323] text-3xl text-zinc-800 md:text-3xl xl:ml-12 xl:text-5xl"
 		>
 			CODE MUST BE ELEGANT
 		</a>
@@ -97,7 +97,7 @@
 		</section>
 	</div>
 	<section
-		class="z-10 flex scale-75 items-center justify-center sm:scale-75 md:scale-100 xl:mx-auto xl:my-32 xl:flex-col xl:justify-around 2xl:mx-10"
+		class="z-10 flex scale-75 items-center justify-around sm:scale-75 sm:justify-center md:scale-100 xl:mx-auto xl:my-32 xl:flex-col xl:justify-around 2xl:mx-10"
 	>
 		<a
 			href="https://www.linkedin.com/in/mateusz-szczukiewicz-776665286/"
