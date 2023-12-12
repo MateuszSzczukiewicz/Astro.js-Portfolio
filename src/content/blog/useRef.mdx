@@ -1,0 +1,125 @@
+---
+title: 'Poczuj się jak w DOMu! – czyli, do czego odwołuje się useRef.'
+description: 'Czym jest i jak używać hooka useRef'
+pubDate: 'Dec 09 2023'
+heroImage: '/images/React.webp'
+---
+
+W poprzednich wpisach powiedzieliśmy sobie już o dwóch najpopularniejszych hookach dostępnych w Reakcie. Przy pierwszym z nich wspomniałem, że zamiast useState w niektórych przypadkach lepiej sprawdzą się inne hooki, jak na przykład useRef. I to właśnie on będzie bohaterem dzisiejszego artykułu. Przy okazji powtórzymy sobie całą trójkę i ich powiązanie w obszarze renderowania komponentu. Jednak, czym właściwie jest ten useRef i jakim cudem może zastąpić hooka do zarządzania lokalnym stanem?
+
+Zacznijmy sobie od początku. Bohater naszego dzisiejszego artykułu ma swoją branżę, w której czuje się jak ryba w wodzie. Mianowicie, świetnie jak nikt inny radzi on sobie w interakcjach z DOMem, czyli Document Object Model. Czym jest DOM? Najprościej rzecz ujmując, jest to dokument HTML (lub XML), w którym każdy element jest osobnym obiektem. Ale choć może się to wydawać z początku skomplikowane, to na przykładzie będzie to bardzo dobrze widoczne.
+
+W useRef, jak sama nazwa wskazuje używamy ref, czyli mechanizmu pozwalającego nam dostać się do wspomnianego wcześniej drzewa DOM. Bo jak pewnie wiecie, w Reakcie mamy do czynienia z JSX-em (lub TSX-em), czyli JavaScript XML. Jest to rozszerzenie składni JavaScript ułatwiające pisanie struktur podobnych do HTMLa. Spójrzmy na przykład, który pozwoli nam wejść w ten temat:
+
+```jsx
+const MyComponent = () => {
+  return <h1>Hello, React with JSX!</h1>;
+};
+```
+
+Tak wygląda komponent, który zwraca prosty JSX. Dla nas wygląda to jak zwykły znacznik h1, lecz pod podszewką jest to bardziej skomplikowana konstrukcja. Napiszmy to w takim razie jeszcze raz:
+
+```jsx
+const MyComponent = () => {
+  return React.createElement('h1', null, 'Hello, React with JSX!');
+};
+```
+
+Dzięki metodzie createElement możemy stworzyć obiekt za pomocą trzech argumentów. Pierwszy z nich oznacza znacznik, drugi to dodatkowe właściwości, np. className, a trzeci to zawartość elementu.
+
+Warto to wiedzieć, by uzasadnić istnienie useRef. Pomaga nam on dotrzeć do prawdziwego obiektu DOM. Jeśli to wiemy, możemy ruszyć dalej, by zaimplementować pierwszy komponent z tym hookiem:
+
+```jsx
+ const MyComponent = () => {
+  const myRef = useRef(null);
+
+  return <div ref={myRef}></div>
+  );
+}
+```
+
+Tworzymy zmienną z hookiem, który jako argument przekazuje początkową wartość. Kiedy chcemy tylko wykorzystać useRef, by dostać się do drzewa DOM, możemy ustawić tam null. Teraz dzięki mechanizmowi referencji do drzewa DOM - ref, możemy przypisać zmienną z naszym hookiem bezpośrednio do diva. Dzięki temu mamy już nad nim pełną kontrolę.
+
+Ale useRef nie wynalazł tego sposobu komunikacji z DOMem. Podobnie jak ze stanem lokalnym, czy cyklem życia komponentu, również tworzenie referencji było już wcześniej możliwe. Hooki nam to jednak znacznie ułatwiły. Spójrzmy zatem na ten sam komponent, ale wykorzystując poznany wcześniej zapis JSX z użyciem createElement oraz createRef.
+
+```jsx
+const MyComponent = () => {
+  const myRef = React.createRef();
+
+  return React.createElement('div', { ref: myRef });
+};
+```
+
+W takim razie, jeśli uzyskaliśmy kontrolę nad komponentem div, spróbujmy zmienić go w drzewie DOM. Zmieńmy kolor czcionki na niebieski wykorzystując poznany już hook useEffect.
+
+```jsx
+const MyComponent = () => {
+  const myRef = useRef(null);
+
+  useEffect(() => {
+    // Uzyskaj dostęp do elementu DOM i zastosuj zmiany
+        myRef.current.style.color = 'blue';
+  }, []);
+
+  return <div ref={myRef}>Hello, React with useRef!</div>;
+};
+```
+
+Naszym oczom ukazał się tekst w kolorze niebieskim. Jednak czemu po zmiennej myRef użyliśmy current? Odpowiedź znajdziemy po wykonaniu console.log().
+
+```jsx
+{
+  current: div,
+  __proto__: Object
+}
+```
+
+Okazuje się, że myRef jest w rzeczywistości obiektem składającym się z current, oznaczającym dynamicznie aktualizowaną wartość rzeczywistego elementu DOM oraz __proto, standardowego obiektu JavaScript, który w tym temacie w ogóle nas nie interesuje.
+
+Ale zatrzymajmy się na chwilę przy sformułowaniu „dynamicznie aktualizowana wartość rzeczywistego elementu DOM", bo w tym właśnie tkwi potęga useRef. Przejdźmy zatem do jego drugiej funkcji, jaką jest alternatywne przetrzymywanie stanu lokalnego.
+
+Za pomocą useState możemy przechowywać i aktualizować stan lokalny, jednakże każda zmiana tego stanu powoduje ponowne przerenderowanie komponentu. Dzięki useRef możemy temu zapobiec.
+
+Porównajmy dwa proste przypadki. W pierwszym widzimy komponent, z którym już mieliśmy przyjemność obcować w przednim artykule. Podczas każdego wciśnięcia guzika stan ulega zmianie, a komponent ponownie renderuje się w drzewie DOM.
+
+```jsx
+const ExampleComponent = () => {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+};
+```
+
+W drugim przypadku ustawiamy początkową wartość useRef na 0 i mimo inkrementacji tej wartości, komponent nie ulegnie przerenderowaniu.
+
+```jsx
+const ExampleComponent = () => {
+  const countRef = useRef(0);
+
+  const increment = () => {
+    countRef.current += 1;
+  };
+
+  return (
+    <div>
+      <p>Count: {countRef.current}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+};
+```
+
+Warto tu powtórzyć, jak zachowują się te trzy hooki. UseState przy każdej zmianie stanu powoduje przerenderowanie komponentu. UseEffect aktualizuje komponent dopiero po ponownym renderze. UseRef za to, nie powoduje ponownego renderowania w ogóle.
+
+Jeśli wiemy już wszystko o useRef, powiedzmy sobie w jakich sytuacjach może być on wykorzystywany. Po pierwsze, dzięki jego zdolnością do komunikowania się z drzewem DOM, znacznie ułatwi on nam korzystanie z bibliotek takich jak GSAP, które pozwalają nam animować elementy HTML. Ponadto, w sytuacjach takich jak przechowywanie danych, które nie powinny powodować ponownego renderowania, czy utrzymywaniu stałej wartości przez cały cykl życia komponentu, sprawdzi się o wiele lepiej, niż useState. Nie będzie on wywoływał ponownego renderowania komponentu po każdej zmianie.
+
+Krótko mówiąc, gdy przetrzymujemy dane, które wpływają na widok, lepiej posłużyć się sprawdzonym useState. Jednakże, jeśli ciągłe renderowanie komponentu jest w naszej funkcjonalności niewskazane, skorzystajmy z useRef. Pamiętajmy również, iż te dwa hooki nie są swoimi zaciekłymi wrogami i w bardziej złożonych komponentach mogę one ze sobą współdziałać, bo każdy z nich doskonale sprawdza się na swoim polu.
