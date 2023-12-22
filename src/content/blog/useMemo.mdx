@@ -1,0 +1,161 @@
+---
+title: 'Pamiętaj o memoizacji! – Czyli kompleksowo o "useMemo" i nie tylko.'
+description: 'Czym jest i jak używać hooka "useMemo"'
+pubDate: 'Dec 19 2023'
+heroImage: '/images/React.webp'
+---
+
+Podczas programowania jedną z najbardziej istotnych rzeczy, na jaką musimy zwracać uwagę, jest optymalizacja wydajności naszego kodu. Memoizacja - bo o niej w dużej mierze będzie ten artykuł, jest znaną techniką optymalizacyjną w wielu językach programowania. Opiera się ona na zapamiętywaniu kosztownych obliczeń, by nie trzeba było ich niepotrzebnie powtarzać, gdy na przykład funkcja otrzyma identyczne argumenty. W Reakcie ten cel możemy osiągnąć na różne sposoby, używając React.memo, czy wykorzystując kolejnego hooka w naszej serii - useMemo.
+
+Zacznijmy jednak od wspomnianej memoizacji. By to zobrazować, stwórzmy ciąg Fibbonacciego. Dla przypomnienia jest to ciąg, w którym każda kolejna liczba jest sumą dwóch poprzednich. Zacznijmy od zainicjalizowania tej funkcji, która jako argumenty będzie przyjmować podaną przez użytkownika liczbę n, oraz memo z przypisaną do niej pustą tablicą. To właśnie tam będziemy przechowywać już obliczone wartości.
+
+```jsx
+function fibonacci(n, memo = []) {
+```
+
+Teraz określmy warunek bazowy. Jeśli podana przez użytkownika liczba będzie mniejsza bądź równa 0, funkcja to zwróci właśnie tę liczbę.
+
+```jsx
+if (n <= 1) {
+  return n;
+}
+```
+
+Teraz sprawdzamy, czy wprowadzona przez użytkownika wartość została już wcześniej obliczona i zapisana w memo, jeśli tak - podajemy tę wartość bez zbędnego obliczania. Zaoszczędzamy wtedy komputerowi zachodu.
+
+```jsx
+if (memo[n]) {
+  return memo[n];
+}
+```
+
+I dopiero teraz, po tych dwóch sprawdzeniach, możemy obliczyć wpisaną przez użytkownika wartość. Obliczamy ją stosując rekurencję, czyli wywoływanie funkcji w niej samej, podczas jej wykonywania. Brzmi skomplikowanie, ale jest naprawdę przydatne. Wywołujemy funkcję fibbonacci dla dwóch poprzednich elementów ciągu i sumujemy je. Przed tym jednak zapisujemy wynik w memo. Następnie, obliczoną wartość zostaje już tylko zwrócić użytkownikowi.
+
+```jsx
+memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);
+return memo[n];
+```
+
+Teraz gdy użytkownik wpisze wartość 10000 pięć razy, program obliczy tę wartość tylko raz. Tak właśnie działa memoizacja.
+
+Ale jak do tego tematu zabiera się w React? Jak już wspomniałem, dwojako. Zacznijmy jednak od React.memo. W tym celu cofniemy się do tematu cyklu życia komponentów, który opisywałem w artykule o useEffect. Gdy mówiliśmy o komponencie klasowym, wspominałem o metodzie shouldComponentUpdate. Sprawdzała ona propsy przychodzące z zewnątrz i porównywała je ze stanem lokalnym, by uniknąć ponownego renderowania się dla tych samych wartości. W komponencie funkcyjnym podobną rolę spełnia React.memo, który również sprawdza przychodzące z zewnątrz propsy. Stwórzmy komponent renderujący dwa paragrafy na podstawie propsów.
+
+```jsx
+const MemoizedComponent = React.memo(({ prop1, prop2 }) => {
+  return (
+    <div>
+      <p>{prop1}</p>
+      <p>{prop2}</p>
+    </div>
+  );
+});
+```
+
+Dzięki React.memo zostanie on wyrenderowany tylko wtedy, jeśli chociaż jeden z propsów zostanie zmieniony. Spójrzmy jakby wyglądał ten sam komponent, ale korzystając z metody shouldComponentUpdate.
+
+```jsx
+class MyComponent extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+
+    return (
+      nextProps.prop1 !== this.props.prop1 ||
+      nextProps.prop2 !== this.props.prop2 ||
+      nextState.someState !== this.state.someState
+    );
+  }
+
+  render() {
+    const { prop1, prop2 } = this.props;
+
+    // renderowanie komponentu
+    return (
+      <div>
+        <p>{prop1}</p>
+        <p>{prop2}</p>
+      </div>
+    );
+  }
+}
+```
+
+Jeżeli chodzi o zwięzłość kodu, komponenty funkcyjne znów górą. Warto ten mechanizm wykorzystywać, gdy nasze komponenty renderują się stanowczo zbyt często, spowalniając tym samym naszą aplikację. Nie jest to jednak rozwiązanie idealne, ale o tym powiemy sobie już przy omawianiu useCallback.
+
+Pierwszy sposób opierał się na propsach w komponentach funkcyjnych. Dzięki React.memo mogliśmy uniknąć ponownego renderowania się komponentu. Co jednak z funkcjami, które nie korzystają z propsów? By ręcznie kontrolować, kiedy dana wartość ma być ponownie obliczana, a kiedy nie, w Reakcie powstał drugi sposób na memoizację, wykorzystujący nasz dzisiejszy hook - useMemo.
+
+Posłużmy się przykładem, w którym ustawimy sobie lokalny stan number z początkową wartością 0 i stworzymy inputa, który poprzez onChange ustanawiał będzie number na wpisaną przez użytkownika wartość:
+
+```jsx
+const MemoWithDependencyExample = () => {
+
+const [number, setNumber] = useState(0);
+<label>
+  Podaj liczbę:
+  <input
+    type="number"
+    value={number}
+    onChange={(e) => setNumber(parseInt(e.target.value, 10))}
+  />
+</label>
+```
+
+Tutaj pozwolę sobie wyjaśnić tę skomplikowaną strukturę wewnątrz setNumber. W e.target.value, e - oznacza obiekt zdarzenia (event), target - element HTML, który to zdarzenie wywołał, a value - wartość wprowadzoną przez użytkownika w polu tekstowym. I tutaj mamy ten haczyk, który wyjaśnia zastosowanie metody parseInt. Wpisywana przez użytkownika wartość jest stringiem, więc by uzyskać wartość liczbową musimy ją zamienić w liczbę. Pierwszy argument to nasz string, a drugi oznacza użycie systemu dziesiętnego.
+
+Mając tę strukturę, zabierzmy się do obliczania kwadratu dla wpisanej wartości. Użyjemy tutaj naszego hooka useMemo, by zapamiętywać uzyskane już wyniki, podobnie jak robiliśmy to w przypadku ciągu Fibbonachiego. Do zmiennej square przypisujemy dwa argumenty. Pierwszy z nich to callback, w którym zwracamy kwadrat podanej liczby, a drugi to tablica zależności. Działa ona tak samo, jak w przypadku useEffect. Gdy wprowadzimy do niej zależność, każda zmiana tej zależności spowoduje ponowne wyrenderowanie się funkcji square.
+
+```jsx
+const square = useMemo(() => {
+console.log(`Obliczanie kwadratu dla ${number}`);
+return number * number;
+}, [number]);
+```
+
+Teraz wystarczy tylko wyświetlić kwadrat liczby dla danego number:
+
+```jsx
+<p>Kwadrat liczby {number} wynosi: {square}</p>
+```
+
+Teraz program nie będzie dwa razy obliczał kwadratu dla tej samej liczby. Jednakże, useMemo ma jeszcze drugie zastosowanie. Rozszerzmy nasz przykład o przycisk, który będzie zliczał ilość kliknięć.
+
+```jsx
+const MemoExampleWithButton = () => {
+  const [number, setNumber] = useState(0);
+  const [buttonClickCount, setButtonClickCount] = useState(0);
+
+  // Obliczanie kwadratu liczby
+  const square = useMemo(() => {
+    console.log(`Obliczanie kwadratu dla ${number}`);
+    return number * number;
+  }, [number]);
+
+  // Funkcja, która wykonuje się po kliknięciu przycisku
+  const handleClick = () => {
+    console.log('Kliknięto przycisk');
+    setButtonClickCount(buttonClickCount + 1);
+  };
+
+  return (
+    <div>
+      <label>
+        Podaj liczbę:
+        <input
+          type="number"
+          value={number}
+          onChange={(e) => setNumber(parseInt(e.target.value, 10))}
+        />
+      </label>
+      <button onClick={handleClick}>Kliknij mnie</button>
+      <p>
+        Kwadrat liczby {number} wynosi: {square}
+      </p>
+      <p>
+        Liczba kliknięć przycisku: {buttonClickCount}
+      </p>
+    </div>
+  );
+};
+```
+
+Teraz po każdym kliknięciu przycisku, komponent wyrenderuje się ponownie z zaktualizowaną wartością buttonClickCount. Nie spowoduje to powtórnego obliczenia w useMemo, ponieważ nie zależy on bezpośrednio od buttonClickCount. Jest to potężna zaleta useMemo, która w wielu miejscach w kodzie może uratować wydajność aplikacji.
+
+UseMemo to hook, który powinniśmy wykorzystywać wszędzie tam, gdzie jego benefity mogą być widoczne. W takich przypadkach może bardzo pomóc nam w prawidłowym zoptymalizowaniu aplikacji, jednocześnie sprawiając, że nasz kod będzie bardziej profesjonalny i elegancki. Pamiętajmy jednak o używaniu go z rozwagą. Lecz wraz z useMemo nie kończymy tego tematu. Jest jeszcze jeden hook - useCallback, który wykonuje podobne zadanie do naszego dzisiejszego bohatera. Zapraszam więc, by zapoznać się i z nim, by w pełni móc wykorzystywać technikę memoizacji w Reakcie.
