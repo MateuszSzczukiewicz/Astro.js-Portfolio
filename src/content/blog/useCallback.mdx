@@ -7,6 +7,8 @@ heroImage: '/images/React.webp'
 
 W moim poprzednim artykule, który dotyczył memoizacji oraz useMemo, wspomniałem o sposobie memoizowania komponentów funkcyjnych za pomocą React.memo. Metoda ta miała zapobiegać ponownemu przerenderowywaniu się komponentu w przypadku, gdy propsy nie uległyby zmianie. Jednakże, gdy jako propsa do tego komponentu przekazalibyśmy funkcję, całość zaczynałaby mieć pewne problemy, o których dzisiaj sobie powiemy. Na ratunek przybiega wtedy bohater naszego dzisiejszego artykułu - useCallback.
 
+## React.memo
+
 Stwórzmy więc z React.memo komponent dziecka, który przyjmuje z propsów funkcję onClick i na jej podstawie renderuje po kliknięciu przycisk:
 
 ```jsx
@@ -42,6 +44,8 @@ return (
 ```
 
 Teraz przy każdym naciśnięciu przycisku, komponent dziecka powinien zostać niewzruszony. Przecież cały czas jako props przekazuje on niezmienioną funkcję handleClick. Nic bardziej mylnego! Ale by to zrozumieć, musimy zagłębić się w zasadę działania JavaScriptu.
+
+## Typy danych
 
 W języku JavaScript, typy danych dzielimy na prymitywne: number, string, boolean, BigInt, Symbol, Null i Undefined oraz na typy złożone, czyli obiekty i tablice. Ich główną różnicą jest to, że typy prymitywne porównywane są na podstawie ich konkretnej wartości:
 
@@ -81,6 +85,8 @@ console.log(func1 === func2); // false
 
 Sprawia to, że nawet jeśli jako props do komponentu dziecka damy referencję do funkcji handleClick, to przy każdym przerenderowaniu się komponentu ta referencja ulegnie zmianie. React.memo uzna wtedy, że skoro referencja się zmieniła, to komponent musi wyrenderować się ponownie.
 
+## Wykorzystanie useCallback
+
 Naprawmy to przy użyciu useCallback. Zastosujemy go oplatając nim funkcję handleClick:
 
 ```jsx
@@ -92,4 +98,6 @@ Naprawmy to przy użyciu useCallback. Zastosujemy go oplatając nim funkcję han
 
 Hook useCallback przyjmuje dwa argumenty. Pierwszym jest funkcja, którą chcemy memoizować, a drugim - tablica zależności. Jest to mechanizm znany już nam z useEffect. Teraz mimo ponownego wyrenderowania się komponentu rodzica, funkcja handleClick pozostaje z taką samą referencją jak poprzednio. Dzięki temu React.memo nie renderuje komponentu dziecka od nowa, bo nie zarejestrował on zmiany propsów.
 
-Jednakże, jaka w takim razie jest różnica między useCallback, a poznanym wcześniej hookiem useMemo? Najprościej rzecz ujmując, useCallback wykorzystujemy do memoizowania całej funkcji, a useMemo do zapamiętywania wartości, jaką ta funkcja zwraca. UseCallback zapobiega powtórnemu wyrenderowaniu się całej funkcji, a useMemo zapobiega wykonywania powtórnych obliczeń, przy każdym renderze komponentu. Warto więc używać tych hooków zawsze wtedy, gdy jest ku temu dobra okazja. Mogą one znacząco przyspieszyć działanie naszej aplikacji, jednocześnie zapobiegając wielu błędom związanym z optymalizacją.
+***
+
+Jaka w takim razie jest różnica między useCallback, a poznanym wcześniej hookiem useMemo? Najprościej rzecz ujmując, useCallback wykorzystujemy do memoizowania całej funkcji, a useMemo do zapamiętywania wartości, jaką ta funkcja zwraca. UseCallback zapobiega powtórnemu wyrenderowaniu się całej funkcji, a useMemo zapobiega wykonywania powtórnych obliczeń, przy każdym renderze komponentu. Warto więc używać tych hooków zawsze wtedy, gdy jest ku temu dobra okazja. Mogą one znacząco przyspieszyć działanie naszej aplikacji, jednocześnie zapobiegając wielu błędom związanym z optymalizacją.

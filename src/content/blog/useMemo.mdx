@@ -7,6 +7,8 @@ heroImage: '/images/React.webp'
 
 Podczas programowania jedną z najbardziej istotnych rzeczy, na jaką musimy zwracać uwagę, jest optymalizacja wydajności naszego kodu. Memoizacja - bo o niej w dużej mierze będzie ten artykuł, jest znaną techniką optymalizacyjną w wielu językach programowania. Opiera się ona na zapamiętywaniu kosztownych obliczeń, by nie trzeba było ich niepotrzebnie powtarzać, gdy na przykład funkcja otrzyma identyczne argumenty. W Reakcie ten cel możemy osiągnąć na różne sposoby, używając React.memo, czy wykorzystując kolejnego hooka w naszej serii - useMemo.
 
+## Memoizacja
+
 Zacznijmy jednak od wspomnianej memoizacji. By to zobrazować, stwórzmy ciąg Fibbonacciego. Dla przypomnienia jest to ciąg, w którym każda kolejna liczba jest sumą dwóch poprzednich. Zacznijmy od zainicjalizowania tej funkcji, która jako argumenty będzie przyjmować podaną przez użytkownika liczbę n, oraz memo z przypisaną do niej pustą tablicą. To właśnie tam będziemy przechowywać już obliczone wartości.
 
 ```jsx
@@ -21,7 +23,7 @@ if (n <= 1) {
 }
 ```
 
-Teraz sprawdzamy, czy wprowadzona przez użytkownika wartość została już wcześniej obliczona i zapisana w memo, jeśli tak - podajemy tę wartość bez zbędnego obliczania. Zaoszczędzamy wtedy komputerowi zachodu.
+Sprawdzamy, czy wprowadzona przez użytkownika wartość została już wcześniej obliczona i zapisana w memo, jeśli tak - podajemy tę wartość bez zbędnego obliczania. Zaoszczędzamy wtedy komputerowi zachodu.
 
 ```jsx
 if (memo[n]) {
@@ -37,6 +39,8 @@ return memo[n];
 ```
 
 Teraz gdy użytkownik wpisze wartość 10000 pięć razy, program obliczy tę wartość tylko raz. Tak właśnie działa memoizacja.
+
+## React.memo
 
 Ale jak do tego tematu zabiera się w React? Jak już wspomniałem, dwojako. Zacznijmy jednak od React.memo. W tym celu cofniemy się do tematu cyklu życia komponentów, który opisywałem w artykule o useEffect. Gdy mówiliśmy o komponencie klasowym, wspominałem o metodzie shouldComponentUpdate. Sprawdzała ona propsy przychodzące z zewnątrz i porównywała je ze stanem lokalnym, by uniknąć ponownego renderowania się dla tych samych wartości. W komponencie funkcyjnym podobną rolę spełnia React.memo, który również sprawdza przychodzące z zewnątrz propsy. Stwórzmy komponent renderujący dwa paragrafy na podstawie propsów.
 
@@ -80,6 +84,8 @@ class MyComponent extends Component {
 
 Jeżeli chodzi o zwięzłość kodu, komponenty funkcyjne znów górą. Warto ten mechanizm wykorzystywać, gdy nasze komponenty renderują się stanowczo zbyt często, spowalniając tym samym naszą aplikację. Nie jest to jednak rozwiązanie idealne, ale o tym powiemy sobie już przy omawianiu useCallback.
 
+## Wykorzystanie useMemo
+
 Pierwszy sposób opierał się na propsach w komponentach funkcyjnych. Dzięki React.memo mogliśmy uniknąć ponownego renderowania się komponentu. Co jednak z funkcjami, które nie korzystają z propsów? By ręcznie kontrolować, kiedy dana wartość ma być ponownie obliczana, a kiedy nie, w Reakcie powstał drugi sposób na memoizację, wykorzystujący nasz dzisiejszy hook - useMemo.
 
 Posłużmy się przykładem, w którym ustawimy sobie lokalny stan number z początkową wartością 0 i stworzymy inputa, który poprzez onChange ustanawiał będzie number na wpisaną przez użytkownika wartość:
@@ -109,7 +115,7 @@ return number * number;
 }, [number]);
 ```
 
-Teraz wystarczy tylko wyświetlić kwadrat liczby dla danego number:
+W paragrafie wystarczy tylko wyświetlić kwadrat liczby dla danego number:
 
 ```jsx
 <p>Kwadrat liczby {number} wynosi: {square}</p>
@@ -156,6 +162,8 @@ const MemoExampleWithButton = () => {
 };
 ```
 
-Teraz po każdym kliknięciu przycisku, komponent wyrenderuje się ponownie z zaktualizowaną wartością buttonClickCount. Nie spowoduje to powtórnego obliczenia w useMemo, ponieważ nie zależy on bezpośrednio od buttonClickCount. Jest to potężna zaleta useMemo, która w wielu miejscach w kodzie może uratować wydajność aplikacji.
+***
+
+Po każdym kliknięciu przycisku, komponent wyrenderuje się ponownie z zaktualizowaną wartością buttonClickCount. Nie spowoduje to powtórnego obliczenia w useMemo, ponieważ nie zależy on bezpośrednio od buttonClickCount. Jest to potężna zaleta useMemo, która w wielu miejscach w kodzie może uratować wydajność aplikacji.
 
 UseMemo to hook, który powinniśmy wykorzystywać wszędzie tam, gdzie jego benefity mogą być widoczne. W takich przypadkach może bardzo pomóc nam w prawidłowym zoptymalizowaniu aplikacji, jednocześnie sprawiając, że nasz kod będzie bardziej profesjonalny i elegancki. Pamiętajmy jednak o używaniu go z rozwagą. Lecz wraz z useMemo nie kończymy tego tematu. Jest jeszcze jeden hook - useCallback, który wykonuje podobne zadanie do naszego dzisiejszego bohatera. Zapraszam więc, by zapoznać się i z nim, by w pełni móc wykorzystywać technikę memoizacji w Reakcie.
