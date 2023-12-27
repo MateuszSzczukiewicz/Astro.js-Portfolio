@@ -9,7 +9,7 @@ Ostatnio powiedzieliśmy sobie trochę o pierwszym z hooków, mianowicie o niesa
 
 A skoro o życiu komponentu mowa, to właśnie tym segmentem useEffect zajmuje się z zawodowo. Jest on dziennikarzem, który śledzi losy komponentu od narodzin, aż po samą śmierć. Tym samym zwalnia nas z samodzielnego martwienia się o całą biografię komponentu. Jednak zanim przejdziemy do omawiania naszego dzisiejszego bohatera, spójrzmy na życie i czasy komponentu.
 
-## Komponenty klasowe
+## Cykl życia komponentu
 
 Każdy komponent rodzi się, zmienia i umiera. Podczas tych procesów mamy do czynienia jednak z trzema fazami, które towarzyszą komponentowi podczas rozwoju. Gdy komponent rozpoczyna swoje życie (mounting) najpierw musi przejść przez fazę renderowania. Wszystko zaczyna się w konstruktorze, gdyż mowa tu o komponencie klasowym. W nim dochodzi do nadania mu początkowego stanu, znanym nam setState, oraz odebraniu propsów z innego komponentu. W tym celu musi on wywołać konstruktor znajdujący się w odbieranym komponencie poprzez super(props). Robi to pierwszą metodą, jaką jest getDerivedStateFromProps, o której będzie za chwilę. Przypisuje on też własne metody, np. handleClick. Następnie, gdy konstruktor będzie już gotowy, dochodzi do renderu komponentu i natychmiastowym przeskoczeniu do trzeciej fazy, jaką jest faza commitu. Wtedy to metoda componentDidMount stawia naszego bohatera w drzewie DOM.
 
@@ -112,6 +112,8 @@ I tak wygląda cała biografia komponentu. Celowo pominąłem metody, takie jak:
 
 ***
 
+## Wykorzystanie useEffect
+
 Zacznijmy jednak od stworzenia funkcji strzałkowej. Następnie ustawmy sobie useState, który będzie nam przechowywał aktualną wartość count na podstawie początkowej wartości 0:
 
 ```jsx
@@ -197,5 +199,7 @@ class DynamicCounterComponent extends Component {
   }
 }
 ```
+
+***
 
 Teraz już pewnie widzicie jak useEffect potrafi ułatwić życie. Gdy mamy do czynienia z bardziej złożonymi komponentami, zwykłe metody cyklu życia potrafią stać się niezwykle upierdliwe. Głównie przez potrzebę powielania tego samego kodu. Dlatego dziś metody te odeszły w zapomnienie, razem z komponentami klasowymi w React, gdyż kluczowe zadania tych komponentów, czyli tworzenie stanu lokalnego oraz cyklu życia, zostały przejęte przez useState i useEffect w komponentach funkcyjnych. Na koniec jednak chciałbym powiedzieć kilka gorzkich słów o naszym dzisiejszym bohaterze. Podobnie do useState bywa on nadużywany. W bardzo wielu przypadkach zamiast niego lepszym pomysłem byłoby używanie useCallback, useMemo, useReducer, useContext, czy własnych hooków. Widać to głównie przy używaniu useEffect z pustą tablicą zależności. Dlatego nie należy kończyć nauki hooków na tych dwóch najpopularniejszych. W następnych artykułach prześledzimy sobie ich alternatywy, które w mojej ocenie potrafią być znacznie bardziej wydajne i eleganckie.

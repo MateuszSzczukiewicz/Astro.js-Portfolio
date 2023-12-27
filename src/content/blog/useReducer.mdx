@@ -1,0 +1,84 @@
+---
+title: 'Stan na sterydach – czyli jak używać „useReducer”.'
+description: 'Czym jest i jak używać hooka "useReducer"'
+pubDate: 'Dec 27 2023'
+heroImage: '/images/React.webp'
+---
+
+W przypadku prostego stanu lokalnego używanie omawianego już useState, czy useRef jest wystarczające i nie wymaga bardziej skomplikowanych mechanizmów. Problem zaczyna się dopiero ze stanem bardziej złożonym, który wymaga dostosowywania go pod wiele akcji. Dzięki useReducer, który niniejszym zostaje bohaterem dzisiejszego artykułu, możemy przechowywać nasz lokalny stan w mechanizmie umożliwiającym dowolnego jego modyfikowanie. Ponadto, dzięki jego zastosowaniom możemy wykorzystać go także do implementacji stanu globalnego razem z innym hookiem, jakim jest useContext. Poznanie tych dwóch hooków będzie więc swoistym preludium do poznania ważnej i trudnej technologii do zarządzania stanem globalnym, jaką jest Redux oraz jego uproszczona wersja - Redux Toolkit.
+
+Zacznijmy od prostego licznika, który omawialiśmy już przy okazji useState. Jednak tym razem oprócz funkcji dodawania, zaimplementujemy także możliwość odejmowania od count:
+
+```jsx
+const CounterWithState = () => {
+  // Definicja stanu
+  const [count, setCount] = useState(0);
+
+  // Funkcje obsługujące zmianę stanu
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+};
+```
+
+Nic prostszego. Stan działa poprawnie, ale my zrobimy to w bardziej profesjonalny i przede wszystkim elegancki sposób. Utwórzmy stan za pomocą useReducer. Hook ten przyjmuje trzy argumenty. Pierwszym z nich jest reducer, czyli funkcja obsługująca zmiany w stanie, drugim - wartość początkowa stanu, a trzecim - opcjonalny init - funkcja inicjalizująca stan. Dzięki destrukturyzacji tablic do zmiennej przypisujemy state, czyli stan zwrócony z reducera oraz dispatch - funkcję przyjmującą akcję przesyłaną do reducera.
+
+```jsx
+const CounterWithReducer = () => {
+  // Użycie useReducer z domyślnym stanem
+  const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+```
+
+Następnie, należy zaimplementować funkcję counterReducer, przyjmującą dwa argumenty: stan oraz akcje. Czym są te akcje? To sposoby, w jakie modyfikujemy nasz stan. Każdy action to obiekt, który zawiera dwie informacje: typ akcji oraz jej opcjonalny ładunek:
+
+```jsx
+const action = {
+  type: 'INCREMENT',
+  payload: 42, // opcjonalne pole z dodatkowymi danymi
+};
+```
+
+W przypadku tego licznika stan będziemy zwiększać oraz zmniejszać o 1. W takim razie potrzebujemy dwóch takich akcji. Wykorzystamy do tego konstrukcję switch. Sam switch jest bardziej eleganckim substytutem dla licznych kombinacji if - else. Naszym przełącznikiem będzie zatem typ w obiekcie akcji. Teraz, gdy nasz switch wykryje daną akcję, zwróci obiekt ze spread operatorem oznaczającym całą wartość stanu oraz modyfikację wartości count. Użycie spread operatora omówiliśmy sobie przy okazji useState. Pomaga on w przypadku, gdybyśmy nie chcieli zmieniać innych wartości obiektu stanu.
+
+```jsx
+const counterReducer = (state, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { ...state, count: state.count + 1 };
+    case 'DECREMENT':
+      return { ...state, count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+```
+
+Dzięki temu debugowanie naszego kodu stanie się znacznie prostsze. Nasz kod zakończymy zwróceniem JSX-a z wartością licznika oraz przyciskami, które modyfikują ten stan po kliknięciu. Użyjemy tutaj ostatniego elementu naszej reducerowej układanki. W naszych przyciskach, onClick będzie zwracał callback z funkcją dispatch. W niej przekazujemy typ naszej akcji, którą chcemy wywołać. Możemy także zawrzeć opcjonalnie payload, który będzie zawierać określoną wartość.
+
+```jsx
+return (
+    <div>
+      <p>Count: {state.count}</p>
+      {/* Wysłanie akcji do reducer'a za pomocą dispatch */}
+      <button onClick={() => dispatch({ type: INCREMENT })}>Increment</button>
+      <button onClick={() => dispatch({ type: DECREMENT })}>Decrement</button>
+    </div>
+  );
+};
+```
+
+***
+
+W tym przypadku useReducer mógłby się wydawać niepotrzebnym zagmatwaniem prostego programu. Jednak podczas tworzenia kalkulatora bądź listy todo, porządek jaki wprowadza ten hook z jego typami akcji oraz payloadami bywa niezastąpiony. Świetnie hook ten sprawdza się również z context API, o którym wspomniałem na początku, a który to będzie tematem kolejnego mojego artykułu. Ich dobra znajomość będzie ułatwieniem w przebrnięciu przez Redux, czy MobX. Wszystko to sprawia, że useReducer jest bardzo ważnym elementem Reacta i powinniśmy używać go zawsze w przypadku bardziej skomplikowanego stanu aplikacji.
