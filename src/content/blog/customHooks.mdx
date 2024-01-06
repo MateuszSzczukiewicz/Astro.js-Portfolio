@@ -1,0 +1,152 @@
+---
+title: 'Zróbmy sobie hooka! – Czyli o tworzeniu własnych hooków.'
+description: 'Czym są i jak używać customowych hooków.'
+pubDate: 'Jan 02 2023'
+heroImage: '/images/React.webp'
+---
+
+Poznaliśmy już w poprzednich artykułach najważniejsze reactowe hooki. Dziś jednak to my sami te hooki będziemy tworzyć i wykorzystywać je w kodzie.
+
+Posłużmy się przykładem prostej aplikacji, która zmienia wpisany tekst. Zastosujemy w niej hooka useState oraz kilka funkcji modyfikujących naszą wartość stringa:
+
+```jsx
+const TextManipulatorComponent = (initialText) => {
+  const [text, setText] = useState(initialText);
+
+  const capitalizeText = () => {
+    setText((prevText) => prevText.toUpperCase());
+  };
+
+  const addExclamation = () => {
+    setText((prevText) => prevText + '!');
+  };
+
+  const resetText = () => {
+    setText(initialText);
+  };
+
+  return (
+    <div>
+      <p>Text: {text}</p>
+      <button onClick={capitalizeText}>Capitalize</button>
+      <button onClick={addExclamation}>Add Exclamation</button>
+      <button onClick={resetText}>Reset</button>
+    </div>
+  );
+};
+```
+
+Problemem takiego komponentu jest jego długość. Oprócz zwrócenia JSX-a zawiera on dużo logiki, która mogłaby być przeniesiona poza ten komponent. I właśnie dlatego stworzymy hooka, który uprości nasz komponent wysyłając do niego gotowe do użycia metody:
+
+```jsx
+export const useTextManipulator = (initialText) => {
+  const [text, setText] = useState(initialText);
+
+  const capitalizeText = () => {
+    setText((prevText) => prevText.toUpperCase());
+  };
+
+  const addExclamation = () => {
+    setText((prevText) => prevText + '!');
+  };
+
+  const resetText = () => {
+    setText(initialText);
+  };
+
+  return {
+    text,
+    capitalizeText,
+    addExclamation,
+    resetText,
+  };
+};
+```
+
+Tak napisanego hooka wystarczy tylko użyć w naszym komponencie:
+
+```jsx
+import useTextManipulator from './useTextManipulator';
+
+const TextManipulatorComponent = () => {
+  const { text, capitalizeText, addExclamation, resetText } = useTextManipulator('Hello, World!');
+
+  return (
+    <div>
+      <p>Text: {text}</p>
+      <button onClick={capitalizeText}>Capitalize</button>
+      <button onClick={addExclamation}>Add Exclamation</button>
+      <button onClick={resetText}>Reset</button>
+    </div>
+  );
+};
+```
+
+Oprócz odchudzania komponentów, własne hooki mają jeszcze jedną zaletę. Gdy potrzebujemy w kilku miejscach w kodzie użyć tej samej logiki, stworzenie własnego hooka pozwoli nam nie pisać ponownie tego samego kodu. Oprócz tego pozwolą nam one zastąpić w kodzie inne hooki, takie jak useState, useEffect, czy useContext. Doskonałym tego przykładem niech będzie używanie w aplikacji aktualnej szerokości okna:
+
+```jsx
+const WindowWidthComponentWithoutHook = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <div>
+      <p>Window Width: {windowWidth}px</p>
+    </div>
+  );
+};
+```
+
+Pisanie takiej logiki za każdym razem powodowałoby bóle głowy. Przenieśmy logikę do hooka useWindowWidth i użyjmy jej w komponencie:
+
+```jsx
+export const useWindowWidth = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    // Funkcja do aktualizacji stanu szerokości okna przy zmianie rozmiaru
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Dodanie listenera do śledzenia zmiany rozmiaru okna
+    window.addEventListener('resize', handleResize);
+
+    // Usunięcie listenera po zniszczeniu komponentu
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // Pusta tablica zależności oznacza, że useEffect zostanie uruchomiony tylko raz po zamontowaniu komponentu
+
+  return windowWidth;
+};
+```
+
+```jsx
+import useWindowWidth from './useWindowWidth';
+
+const WindowWidthComponent = () => {
+  const windowWidth = useWindowWidth();
+
+  return (
+    <div>
+      <p>Window Width: {windowWidth}px</p>
+    </div>
+  );
+};
+```
+
+***
+
+Przykładów takich hooków jest nieskończoność. Pozwalają nam one znacząco odchudzić komponenty sprawiając, że są one bardziej czytelne i eleganckie. Możemy dzięki nim używać wielokrotnie danej logiki i zastępować nimi wbudowane w Reacta hooki. Ale na tym nie kończymy przygody z nimi. Omówiliśmy sobie wszystkie najważniejsze hooki, ale React nadal ma nam jeszcze wiele ich do zaproponowania. W przyszłych artykułach pochylimy się więc tym mniej znanym i często pomijanym hookom, których znajomość może ułatwić pracę z naszymi aplikacjami.

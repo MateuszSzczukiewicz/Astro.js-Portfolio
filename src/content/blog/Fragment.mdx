@@ -1,0 +1,101 @@
+---
+title: ' Bez zbędnych div-ów – czyli krótko o React.Fragment.'
+description: 'Czym jest i jak używać React.Fragment.'
+pubDate: 'Jan 06 2023'
+heroImage: '/images/React.webp'
+---
+
+W poprzednim artykule powiedzieliśmy sobie o pierwszym wbudowanym w Reacta komponencie, jakim był suspense. Dziś powiemy sobie o bardziej powszechnym i znanym komponencie, czyli o React.Fragment, bez którego pisanie naszego JSX-a byłoby o wiele bardziej uciążliwe. Przekonajmy się, co robi ten komponent i jak działa on pod podszewką.
+
+Gdy chcielibyśmy stworzyć komponent, którego zadaniem byłoby wyrenderowanie dwóch paragrafów, nie możliwym byłoby zwrócenie ich w następujący sposób:
+
+```jsx
+return (
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+);
+```
+
+Tak napisany kod od razu zwróciłby błąd. Dzieje się tak, gdyż każdy blok kodu w JSX musi być opakowany jednym elementem nadrzędnym, tzw. "węzłem rodzicielskim". W takim przypadku pierwsza myśl, jaka nasuwa się, by ten problem rozwiązać, jest oplecenie naszych paragrafów jednym divem:
+
+```jsx
+return (
+  <div>
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+  </div>
+);
+```
+
+Kod nie zwróci nam już błędów, lecz takie rozwiązanie sytuacji jest wysoce nieeleganckie. Po pierwsze, niepotrzebnie zanieczyszcza nam to strukturę HTML. W złożonej aplikacji, gdy będziemy oplatać każdy taki JSX pojedynczym divem, liczba tych tagów zakłóci nasze rozumienie kodu. Ponadto każdy taki div wprowadza dodatkowy węzeł do drzewa DOM, co zwiększa rozmiar naszego HTMLa i niekorzystnie wpływa na wydajność, o którą na przestrzeni ostatnich artykułów tak bardzo się martwiliśmy. Największym jednak problemem jest zakłócenie stylów CSS. Gdy korzystamy w flexboxa bądź grida, opakowanie naszych elementów HTML w diva zakłóci naturalny przepływ i przysporzy nam wiele zmagań z przywróceniem pożądanego układu aplikacji.
+
+I tu na salony wchodzi React.Fragment, który pomaga nam z tymi problemami. Opakujmy sobie teraz nim nasze paragrafy:
+
+```jsx
+return (
+  <React.Fragment>
+    <p>Akapit 1</p>
+    <p>Akapit 2</p>
+  </React.Fragment>
+);
+```
+
+Dzięki temu nasz HTML nie będzie już zaśmiecany kolejnymi divami, liczba węzłów DOM nie będzie rozszerzana o zbędne elementy, a nasz układ elementów pozostanie w nienaruszonym stanie. Mimo to, pisanie nazwy tego komponentu na dłuższą metę może być co najmniej irytujące. Na szczęście nikt nam nie każe tego robić. Nie musimy importować Fragmentu z Reacta ani pisać go za każdym razem. Wystarczy, że opakujemy nasze elementy w pusty tag, który ma w sobie ukryty Fragment:
+
+```jsx
+return (
+  <>
+    <p>Akapit 1</p>
+    <p>Akapit 2</p>
+  </>
+);
+```
+
+I tak napisany kod wygląda i działa elegancko. Mimo to, w pewnej sytuacji nadal sprawę mamy nie do końca rozwiązaną. W Reakcie, podczas mapowania tablic do każdego renderowanego elementu musimy podawać atrybut key, który pozwala mu odświeżać tylko te elementy, które uległy zmianie, zamiast całej listy. Bez klucza, React mógłby mieć trudności w identyfikowaniu, który element został zmieniony, dodany lub usunięty. Gdybyśmy chcieli wyrenderować listę elementów stosując diva, moglibyśmy dodać do niego omawiany atrybut key:
+
+```jsx
+const listaElementow = [1, 2, 3, 4];
+
+return (
+  <div>
+    {listaElementow.map(element => (
+      <div key={element}>
+        <span>{element}</span>
+        <br />
+      </div>
+    ))}
+  </div>
+);
+```
+
+Tego samego nie możemy zrobić używając pustego tagu. W tym jednym przypadku musimy pamiętać o zastosowaniu słownym Fragmentu, dzięki czemu będziemy mogli dodać do niego key:
+
+```jsx
+const listaElementow = [1, 2, 3, 4];
+
+return (
+  <div>
+    {listaElementow.map(element => (
+      <React.Fragment key={element}>
+        <span>{element}</span>
+        <br />
+      </React.Fragment>
+    ))}
+  </div>
+);
+```
+
+Użycie Fragmentu pomoże nam także w sytuacji, gdy chcemy wyrenderować dany JSX tylko wtedy, gdy spełniony zostanie określony warunek:
+
+```jsx
+return (
+  <>
+    {zalogowany ? <PowitanieUzytkownika /> : <PowitanieGoscia />}
+    <p>Witamy na naszej stronie!</p>
+  </>
+);
+```
+
+***
+
+Wszystko to sprawia, że tworzenie aplikacji reaktowej bez stosowania Fragmentu nie byłoby dobrą opcją. Używajmy go zawsze, gdy musimy zwrócić w JSX więcej niż jeden element. Warto też zastępować divy nie tylko Fragmentem, ale też innymi semantycznymi tagami HTML, jak header, main, section, aside, czy footer. Tak napisany kod zwiększy nie tylko czytelność naszego kodu, ale też SEO naszej aplikacji.

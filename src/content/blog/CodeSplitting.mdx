@@ -1,0 +1,56 @@
+---
+title: 'Leniwy React i kodu dzielenie – czyli krótko o lazy oraz suspense.'
+description: 'Czym są i jak używać React.lazy, Suspense oraz Code Splitting.'
+pubDate: 'Jan 04 2023'
+heroImage: '/images/React.webp'
+---
+
+W poprzednich artykułach wiele mówiliśmy o wydajności w aplikacjach reactowych. Skupialiśmy się głównie na kwestii unikania zbędnych ponownych renderów komponentów. Dziś ugryziemy temat optymalizacji z zupełnie innej strony, a mianowicie na dzieleniu kodu, czyli zmniejszeniu początkowego pakietu, jaki pobiera nasza przeglądarka. Użyjemy do tego kolejnego udostępnionego nam przez Reacta API - React.lazy oraz wbudowanego komponentu - suspense.
+
+## Code Splitting
+
+Jednak nim przejdziemy do mięska, musimy sobie powiedzieć trochę o tym, co dzieje się z naszym kodem w chwili, gdy trafia on do użytkownika. Podczas budowania naszej aplikacji, wszystkie komponenty trafiają do jednego pliku, czyli tak zwanego bundla. W chwili, gdy nasza aplikacja jest mocno rozbudowana, do takiego bundla trafi wiele komponentów i funkcjonalności, zwiększając tym samym wielkość takiego pakietu, przez co użytkownik będzie musiał dłużej poczekać na załadowanie się strony. Zmniejsza to drastycznie jego user experience, zwłaszcza gdy nie ma on dostępu do szybkiego łącza. By temu zaradzić, stosuje się technikę nazywaną code splittingiem. Dzięki niej, możemy podzielić kod na tak zwane chunki i serwować je użytkownikowi, gdy ten będzie ich potrzebować.
+
+## React.lazy
+
+W Reakcie, by zastosować taki code splitting, będziemy potrzebować dwóch wspomnianych już przeze mnie narzędzi. Pierwszym z nich jest React.lazy. Pomaga on nam zaimportować dany komponent, dopiero gdy będziemy potrzebowali go użyć. Używa on do tego dynamicznych importów. Jest to mechanizm pozwalający nam na dynamiczne ładowanie modułów lub plików w trakcie działania programu. Na początek zaimportujmy sobie komponent w tradycyjny sposób:
+
+```jsx
+import MyComponent from './ MyComponent';
+```
+
+A teraz ten sam komponent, ale z importem dynamicznym:
+
+```jsx
+const MyComponent = () => import('./MyComponent');
+```
+
+W Reakcie zaś, w celu uzyskania dynamicznego importu użyjemy właśnie wspomnianego React.lazy. Przyjmuje on jako argument jedynie funkcję zwracającą obietnicę (Promise), która dynamicznie importuje komponent:
+
+```jsx
+const MyComponent = React.lazy(() => import('./MyComponent'));
+```
+
+## Suspense
+
+Samo zastosowanie React.lazy nic jednak nie zrobi, gdyż program nadal nie będzie wiedział, jak obsłużyć takie opóźnione załadowanie komponentu. By uzyskać poprawny rezultat, wykorzystamy drugie narzędzie, jakim jest wbudowany w Reacta komponent - suspense.
+
+Suspense to komponent, który oplata nasz pobierany z React.lazy plik i obsługuje jego opóźnione ładowanie. Jednak może zająć ono chwilę i właśnie w tym celu suspense przyjmuje jako parametr fallback, czyli element wyświetlany w zastępstwie, do momentu prawidłowego załadowania się komponentu:
+
+```jsx
+const MyComponent = React.lazy(() => import('./MyComponent'));
+
+const App = () => {
+  return (
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <MyComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+***
+
+Korzystając z tych narzędzi, znacznie poprawimy wydajność naszej aplikacji. Duże komponenty korzystające z innych bibliotek, będą mogły być wczytywane dopiero wtedy, gdy użytkownik wyrazi chęć ich zobaczenia. W przeciwnym wypadku nie będzie musiał on ponosić kosztów związanych z dłuższym ładowaniem strony. Technikę code splittingu powinniśmy zatem wykorzystywać, by ulepszyć wydajność naszej aplikacji i poprawić wynikający z jej użytkowania user experience.
